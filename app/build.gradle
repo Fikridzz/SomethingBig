@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+
 }
 
 android {
@@ -14,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField("String", "BASE_URL", '"https://www.themealdb.com/"')
-        buildConfigField("String", "API_KEY", '""')
+        buildConfigField("String", "API_KEY", '"c41c47a9477e70fce845573104467b3a"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
