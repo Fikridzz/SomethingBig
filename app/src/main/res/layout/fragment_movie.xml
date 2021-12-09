@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".presentation.movie.MovieFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--        <View-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:background="@drawable/bg_home"/>-->
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_welcome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/source_sans_pro_bold"
+        android:text="Welcome"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/source_sans_pro_semibold"
+        android:text="Millions of movies, TV shows and people to discover. Explore now."
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/text_welcome"
+        app:layout_constraintStart_toStartOf="@id/text_welcome"
+        app:layout_constraintTop_toBottomOf="@id/text_welcome" />
+
+    <SearchView
+        android:id="@+id/srcMovie"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_search"
+        app:layout_constraintEnd_toEndOf="@id/text_description"
+        app:layout_constraintStart_toStartOf="@id/text_description"
+        app:layout_constraintTop_toBottomOf="@id/text_description" />
+
+    <TextView
+        android:id="@+id/text_popular"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/source_sans_pro_semibold"
+        android:text="Popular"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/srcMovie"
+        app:layout_constraintStart_toStartOf="@id/srcMovie"
+        app:layout_constraintTop_toBottomOf="@id/srcMovie" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_popular"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_popular"
+        app:layout_constraintTop_toBottomOf="@id/text_popular" />
+
+    <TextView
+        android:id="@+id/text_now_playing"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/source_sans_pro_semibold"
+        android:text="Now playing"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/rv_popular"
+        app:layout_constraintStart_toStartOf="@id/rv_popular"
+        app:layout_constraintTop_toBottomOf="@id/rv_popular" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_now_playing"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@id/text_now_playing"
+        app:layout_constraintStart_toStartOf="@id/text_now_playing"
+        app:layout_constraintTop_toBottomOf="@id/text_now_playing" />
+
+    <TextView
+        android:id="@+id/text_upcoming"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/source_sans_pro_semibold"
+        android:text="Upcoming"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/rv_now_playing"
+        app:layout_constraintStart_toStartOf="@id/rv_now_playing"
+        app:layout_constraintTop_toBottomOf="@id/rv_now_playing" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_upcoming"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@id/text_upcoming"
+        app:layout_constraintStart_toStartOf="@id/text_upcoming"
+        app:layout_constraintTop_toBottomOf="@id/text_upcoming" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

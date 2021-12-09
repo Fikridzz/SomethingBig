@@ -1,7 +1,8 @@
-package co.id.fikridzakwan.somethingbig
+package co.id.fikridzakwan.somethingbig.presentation.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import co.id.fikridzakwan.somethingbig.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
