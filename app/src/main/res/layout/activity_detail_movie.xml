@@ -135,7 +135,7 @@
             android:layout_marginStart="16dp"
             android:background="@drawable/bg_rounded_image"
             android:scaleType="centerCrop"
-            android:src="@tools:sample/backgrounds/scenic"
+            android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toTopOf="@id/guideline3"
             app:layout_constraintStart_toStartOf="parent" />
 

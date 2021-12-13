@@ -15,8 +15,9 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-        buildConfigField("String", "BASE_URL", '"https://www.themealdb.com/"')
+        buildConfigField("String", "BASE_URL", '"https://api.themoviedb.org/3/"')
         buildConfigField("String", "API_KEY", '"c41c47a9477e70fce845573104467b3a"')
+        buildConfigField("String", "BASE_URL_IMAGE", '"https://image.tmdb.org/t/p/w500"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -50,6 +51,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.21"
     implementation "com.google.android.material:material:$materialVersion"
 
     // Retrofit
@@ -58,8 +60,8 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
 
     // Dagger Hilt
-    implementation "com.google.dagger:hilt-android:$daggerVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$daggerVersion"
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.38.1"
 
     // RxJava
     implementation "io.reactivex.rxjava2:rxjava:$rxjavaVersion"

@@ -1,4 +1,4 @@
-package co.id.fikridzakwan.somethingbig.di
+package co.id.fikridzakwan.somethingbig.utils
 
 import co.id.fikridzakwan.somethingbig.domain.usecase.MovieInteractor
 import co.id.fikridzakwan.somethingbig.domain.usecase.MovieUseCase
@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import javax.inject.Named
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -15,6 +14,7 @@ abstract class AppModule {
 
     @Binds
     @ViewModelScoped
-    @Named("Provide use case")
     abstract fun provideMovieUseCase(movieInteractor: MovieInteractor): MovieUseCase
+
 }
+
