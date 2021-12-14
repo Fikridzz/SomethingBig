@@ -8,9 +8,9 @@ import co.id.fikridzakwan.somethingbig.databinding.ItemMovieLargeBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import com.bumptech.glide.Glide
 
-class PopularMovieAdapter(
+class TrendingMovieAdapter(
     private val onItemClickListener: (Movie) -> Unit
-) : RecyclerView.Adapter<PopularMovieAdapter.PopularViewHolder>() {
+) : RecyclerView.Adapter<TrendingMovieAdapter.PopularViewHolder>() {
 
     private var listItem = ArrayList<Movie>()
 

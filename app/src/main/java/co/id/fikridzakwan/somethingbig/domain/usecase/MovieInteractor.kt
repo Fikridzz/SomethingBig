@@ -9,8 +9,8 @@ import javax.inject.Singleton
 
 class MovieInteractor @Inject constructor(private val repository: IMovieRepository) : MovieUseCase {
 
-    override fun getPopularMovies(): Single<List<Movie>> {
-        return repository.getPopularMovies()
+    override fun getTrendingMovies(): Single<List<Movie>> {
+        return repository.getTrendingMovies()
             .map {
                 it.map { result ->
                     result.mapToMovie()

@@ -13,18 +13,18 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : BaseViewModel() {
 
-    val getPopulars = MutableLiveData<Resource<List<Movie>>>()
+    val getTrending = MutableLiveData<Resource<List<Movie>>>()
     val getNowPlaying = MutableLiveData<Resource<List<Movie>>>()
     val getUpcoming = MutableLiveData<Resource<List<Movie>>>()
 
     fun getPopularMovies() {
-        getPopulars.value = Resource.Loading()
+        getTrending.value = Resource.Loading()
 
         disposable.add(
-            movieUseCase.getPopularMovies()
+            movieUseCase.getTrendingMovies()
                 .compose(RxUtils.applySingleAsync())
                 .subscribe({ value ->
-                    getPopulars.value = Resource.Success(value)
+                    getTrending.value = Resource.Success(value)
                 }, this::onError)
         )
     }
@@ -54,7 +54,7 @@ class MovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase)
     }
 
     override fun onError(error: Throwable) {
-        getPopulars.value = Resource.Error(error.localizedMessage!!)
+        getTrending.value = Resource.Error(error.localizedMessage!!)
         getNowPlaying.value = Resource.Error(error.localizedMessage!!)
         getUpcoming.value = Resource.Error(error.localizedMessage!!)
     }

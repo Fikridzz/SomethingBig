@@ -10,8 +10,8 @@ import javax.inject.Singleton
 
 class MovieRepository @Inject constructor(private val movieApi: MovieApi) : IMovieRepository {
 
-    override fun getPopularMovies(): Single<List<ResultsItem>> {
-        return movieApi.getPopularMovies(BuildConfig.API_KEY, 1)
+    override fun getTrendingMovies(): Single<List<ResultsItem>> {
+        return movieApi.getTrendingMovies(BuildConfig.API_KEY, 1)
             .map {
                 it.body()?.results
             }

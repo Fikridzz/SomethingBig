@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface MovieUseCase {
 
-    fun getPopularMovies(): Single<List<Movie>>
+    fun getTrendingMovies(): Single<List<Movie>>
 
     fun getNowPlayingMovies(): Single<List<Movie>>
 

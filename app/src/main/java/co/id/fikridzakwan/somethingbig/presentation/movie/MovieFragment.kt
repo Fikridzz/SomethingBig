@@ -1,7 +1,6 @@
 package co.id.fikridzakwan.somethingbig.presentation.movie
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +25,8 @@ class MovieFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MovieViewModel by viewModels()
 
-    private val popularMovieAdapter: PopularMovieAdapter by lazy {
-        PopularMovieAdapter(
+    private val trendingMovieAdapter: TrendingMovieAdapter by lazy {
+        TrendingMovieAdapter(
             onItemClickListener = {
                 DetailMovieActivity.start(requireContext(), it.id)
             }
@@ -68,14 +67,14 @@ class MovieFragment : Fragment() {
 
         if (activity != null) {
 
-            viewModel.getPopulars.observe(viewLifecycleOwner, {
+            viewModel.getTrending.observe(viewLifecycleOwner, {
                 when(it) {
                     is Resource.Loading -> {
                         binding.shimmerLayout1.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
                         binding.shimmerLayout1.visibility = View.GONE
-                        popularMovieAdapter.setData(it.data)
+                        trendingMovieAdapter.setData(it.data)
 
                         // Random pick image backdrop from api
                         val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
@@ -96,7 +95,7 @@ class MovieFragment : Fragment() {
             })
             with(binding.rvPopular) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = popularMovieAdapter
+                adapter = trendingMovieAdapter
             }
 
             viewModel.getNowPlaying.observe(viewLifecycleOwner, {
