@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="360dp"
             android:orientation="vertical"
@@ -25,12 +25,18 @@
             <!--            android:background="@drawable/bg_home"/>-->
 
             <ImageView
+                android:id="@+id/img_backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
 
-        </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_home" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/text_welcome"
@@ -83,11 +89,36 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_popular"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="280dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/text_popular"
-            app:layout_constraintTop_toBottomOf="@id/text_popular" />
+            app:layout_constraintTop_toBottomOf="@id/text_popular"
+            tools:listitem="@layout/placeholder_item_large" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout1"
+            android:layout_width="0dp"
+            android:layout_height="280dp"
+            app:layout_constraintEnd_toEndOf="@id/rv_popular"
+            app:layout_constraintStart_toStartOf="@id/rv_popular"
+            app:layout_constraintTop_toTopOf="@id/rv_popular"
+            app:shimmer_auto_start="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <include layout="@layout/placeholder_item_large" />
+
+                <include layout="@layout/placeholder_item_large" />
+
+                <include layout="@layout/placeholder_item_large" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
             android:id="@+id/text_now_playing"
@@ -105,11 +136,35 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_now_playing"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@id/text_now_playing"
             app:layout_constraintStart_toStartOf="@id/text_now_playing"
-            app:layout_constraintTop_toBottomOf="@id/text_now_playing" />
+            app:layout_constraintTop_toBottomOf="@id/text_now_playing"
+            tools:listitem="@layout/placeholder_item_small" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout2"
+            android:layout_width="0dp"
+            android:layout_height="220dp"
+            app:layout_constraintEnd_toEndOf="@id/rv_now_playing"
+            app:layout_constraintStart_toStartOf="@id/rv_now_playing"
+            app:layout_constraintTop_toTopOf="@id/rv_now_playing">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <include layout="@layout/placeholder_item_small" />
+
+                <include layout="@layout/placeholder_item_small" />
+
+                <include layout="@layout/placeholder_item_small" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
             android:id="@+id/text_upcoming"
@@ -127,11 +182,38 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_upcoming"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+
             app:layout_constraintEnd_toEndOf="@id/text_upcoming"
             app:layout_constraintStart_toStartOf="@id/text_upcoming"
-            app:layout_constraintTop_toBottomOf="@id/text_upcoming" />
+            app:layout_constraintTop_toBottomOf="@id/text_upcoming"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/placeholder_item_small" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout3"
+            android:layout_width="0dp"
+            android:layout_height="220dp"
+            app:layout_constraintEnd_toEndOf="@id/rv_upcoming"
+            app:layout_constraintStart_toStartOf="@id/rv_upcoming"
+            app:layout_constraintTop_toTopOf="@id/rv_upcoming">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <include layout="@layout/placeholder_item_small" />
+
+                <include layout="@layout/placeholder_item_small" />
+
+                <include layout="@layout/placeholder_item_small" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
