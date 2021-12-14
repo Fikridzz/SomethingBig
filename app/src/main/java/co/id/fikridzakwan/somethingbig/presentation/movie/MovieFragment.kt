@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
@@ -22,8 +20,24 @@ class MovieFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MovieViewModel by viewModels()
 
-    private val largeMovieAdapter: LargeMovieAdapter by lazy {
-        LargeMovieAdapter(
+    private val popularMovieAdapter: PopularMovieAdapter by lazy {
+        PopularMovieAdapter(
+            onItemClickListener = {
+                DetailMovieActivity.start(requireContext(), it.id)
+            }
+        )
+    }
+
+    private val nowPlayingMovieAdapter: NowPlayingMovieAdapter by lazy {
+        NowPlayingMovieAdapter(
+            onItemClickListener = {
+                DetailMovieActivity.start(requireContext(), it.id)
+            }
+        )
+    }
+
+    private val upcomingMovieAdapter: UpcomingMovieAdapter by lazy {
+        UpcomingMovieAdapter(
             onItemClickListener = {
                 DetailMovieActivity.start(requireContext(), it.id)
             }
@@ -43,6 +57,8 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getPopularMovies()
+        viewModel.getNowPlayingMovies()
+        viewModel.getUpcomingMovies()
 
         if (activity != null) {
 
@@ -51,7 +67,7 @@ class MovieFragment : Fragment() {
                     is Resource.Loading -> {
                     }
                     is Resource.Success -> {
-                        largeMovieAdapter.setData(it.data)
+                        popularMovieAdapter.setData(it.data)
                     }
                     is Resource.Error -> {
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
@@ -60,9 +76,42 @@ class MovieFragment : Fragment() {
             })
             with(binding.rvPopular) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = largeMovieAdapter
+                adapter = popularMovieAdapter
+            }
+
+            viewModel.getNowPlaying.observe(viewLifecycleOwner, {
+                when(it) {
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Success -> {
+                        nowPlayingMovieAdapter.setData(it.data)
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+            with(binding.rvNowPlaying) {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = nowPlayingMovieAdapter
+            }
+
+            viewModel.getUpcoming.observe(viewLifecycleOwner, {
+                when(it) {
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Success -> {
+                        upcomingMovieAdapter.setData(it.data)
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+            with(binding.rvUpcoming) {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = upcomingMovieAdapter
             }
         }
     }
-
 }

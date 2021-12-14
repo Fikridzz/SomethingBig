@@ -13,4 +13,16 @@ interface MovieApiClient {
         @Query("api_key") apiKey: String,
         @Query("page") page: Int
     ): Single<Response<MovieResponse>>
+
+    @GET("movie/now_playing")
+    fun getNowPlayingMovies(
+        @Query("api_key") apiKey: String,
+        @Query("page") page : Int
+    ): Single<Response<MovieResponse>>
+
+    @GET("movie/upcoming")
+    fun getUpcomingMovies(
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int
+    ): Single<Response<MovieResponse>>
 }

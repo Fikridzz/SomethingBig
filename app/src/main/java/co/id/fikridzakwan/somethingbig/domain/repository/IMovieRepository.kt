@@ -6,4 +6,8 @@ import io.reactivex.Single
 interface IMovieRepository {
 
     fun getPopularMovies(): Single<List<ResultsItem>>
+
+    fun getNowPlayingMovies(): Single<List<ResultsItem>>
+
+    fun getUpcomingMovies(): Single<List<ResultsItem>>
 }

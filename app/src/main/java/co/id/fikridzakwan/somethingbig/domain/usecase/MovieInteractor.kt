@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class MovieInteractor @Inject constructor(private val repository: IMovieRepository): MovieUseCase {
+class MovieInteractor @Inject constructor(private val repository: IMovieRepository) : MovieUseCase {
 
     override fun getPopularMovies(): Single<List<Movie>> {
         return repository.getPopularMovies()
@@ -16,5 +16,15 @@ class MovieInteractor @Inject constructor(private val repository: IMovieReposito
                     result.mapToMovie()
                 }
             }
+    }
+
+    override fun getNowPlayingMovies(): Single<List<Movie>> {
+        return repository.getNowPlayingMovies()
+            .map { it.map { it.mapToMovie() } }
+    }
+
+    override fun getUpcomingMovies(): Single<List<Movie>> {
+        return repository.getUpcomingMovies()
+            .map { it.map { it.mapToMovie() } }
     }
 }

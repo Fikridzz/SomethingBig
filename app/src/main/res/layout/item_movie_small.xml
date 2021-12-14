@@ -1,10 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/img_poster"
-    android:layout_width="150dp"
-    android:layout_height="210dp"
-    android:layout_marginEnd="16dp"
-    android:background="@drawable/bg_rounded_image"
-    android:scaleType="fitXY"
-    android:src="@drawable/ic_launcher_background" />
+<?xml version="1.0" encoding="utf-8"?><!--<ImageView-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:id="@+id/img_poster"-->
+<!--    android:layout_width="150dp"-->
+<!--    android:layout_height="210dp"-->
+<!--    android:layout_marginEnd="16dp"-->
+<!--    android:background="@drawable/bg_rounded_image"-->
+<!--    android:scaleType="fitXY"-->
+<!--    android:src="@drawable/ic_launcher_background" />-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingEnd="8dp">
+
+    <ImageView
+        android:id="@+id/img_poster"
+        android:layout_width="150dp"
+        android:layout_height="220dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/bg_rounded_image"/>
+
+</LinearLayout>

@@ -14,6 +14,8 @@ import javax.inject.Inject
 class MovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : BaseViewModel() {
 
     val getPopulars = MutableLiveData<Resource<List<Movie>>>()
+    val getNowPlaying = MutableLiveData<Resource<List<Movie>>>()
+    val getUpcoming = MutableLiveData<Resource<List<Movie>>>()
 
     fun getPopularMovies() {
         getPopulars.value = Resource.Loading()
@@ -27,7 +29,33 @@ class MovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase)
         )
     }
 
+    fun getNowPlayingMovies() {
+        getNowPlaying.value = Resource.Loading()
+
+        disposable.add(
+            movieUseCase.getNowPlayingMovies()
+                .compose(RxUtils.applySingleAsync())
+                .subscribe({ value ->
+                    getNowPlaying.value = Resource.Success(value)
+                }, this::onError)
+        )
+    }
+
+    fun getUpcomingMovies() {
+        getUpcoming.value = Resource.Loading()
+
+        disposable.add(
+            movieUseCase.getUpcomingMovies()
+                .compose(RxUtils.applySingleAsync())
+                .subscribe({ value ->
+                    getUpcoming.value = Resource.Success(value)
+                }, this::onError)
+        )
+    }
+
     override fun onError(error: Throwable) {
         getPopulars.value = Resource.Error(error.localizedMessage!!)
+        getNowPlaying.value = Resource.Error(error.localizedMessage!!)
+        getUpcoming.value = Resource.Error(error.localizedMessage!!)
     }
 }

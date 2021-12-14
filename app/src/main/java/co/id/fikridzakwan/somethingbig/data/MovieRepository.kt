@@ -16,4 +16,16 @@ class MovieRepository @Inject constructor(private val movieApi: MovieApi) : IMov
                 it.body()?.results
             }
     }
+
+    override fun getNowPlayingMovies(): Single<List<ResultsItem>> {
+        return movieApi.getNowPlayingMovies(BuildConfig.API_KEY, 1)
+            .map {
+                it.body()?.results
+            }
+    }
+
+    override fun getUpcomingMovies(): Single<List<ResultsItem>> {
+        return movieApi.getUpcomingMovies(BuildConfig.API_KEY, 1)
+            .map { it.body()?.results }
+    }
 }
