@@ -15,6 +15,5 @@ abstract class AppModule {
 
     @Binds
     @ViewModelScoped
-    @Named("Provide use case")
     abstract fun provideMovieUseCase(movieInteractor: MovieInteractor): MovieUseCase
 }

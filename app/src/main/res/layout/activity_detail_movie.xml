@@ -20,6 +20,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:background="#80000000"
+            app:layout_constraintTop_toTopOf="@id/img_backdrop"
+            app:layout_constraintStart_toStartOf="@id/img_backdrop"
+            app:layout_constraintEnd_toEndOf="@id/img_backdrop" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
@@ -131,7 +139,7 @@
         <ImageView
             android:id="@+id/img_poster"
             android:layout_width="150dp"
-            android:layout_height="210dp"
+            android:layout_height="220dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/bg_rounded_image"
             android:scaleType="centerCrop"

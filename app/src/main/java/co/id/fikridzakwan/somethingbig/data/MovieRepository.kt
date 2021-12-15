@@ -2,6 +2,7 @@ package co.id.fikridzakwan.somethingbig.data
 
 import co.id.fikridzakwan.somethingbig.BuildConfig
 import co.id.fikridzakwan.somethingbig.data.source.network.MovieApi
+import co.id.fikridzakwan.somethingbig.data.source.response.DetailResponse
 import co.id.fikridzakwan.somethingbig.data.source.response.ResultsItem
 import co.id.fikridzakwan.somethingbig.domain.repository.IMovieRepository
 import io.reactivex.Single
@@ -27,5 +28,10 @@ class MovieRepository @Inject constructor(private val movieApi: MovieApi) : IMov
     override fun getUpcomingMovies(): Single<List<ResultsItem>> {
         return movieApi.getUpcomingMovies(BuildConfig.API_KEY, 1)
             .map { it.body()?.results }
+    }
+
+    override fun getDetailMovie(id: Int): Single<DetailResponse> {
+        return movieApi.getDetailMovie(id, BuildConfig.API_KEY)
+            .map { it.body() }
     }
 }

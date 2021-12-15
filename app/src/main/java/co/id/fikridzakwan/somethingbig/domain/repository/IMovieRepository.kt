@@ -1,5 +1,6 @@
 package co.id.fikridzakwan.somethingbig.domain.repository
 
+import co.id.fikridzakwan.somethingbig.data.source.response.DetailResponse
 import co.id.fikridzakwan.somethingbig.data.source.response.ResultsItem
 import io.reactivex.Single
 
@@ -10,4 +11,6 @@ interface IMovieRepository {
     fun getNowPlayingMovies(): Single<List<ResultsItem>>
 
     fun getUpcomingMovies(): Single<List<ResultsItem>>
+
+    fun getDetailMovie(id: Int): Single<DetailResponse>
 }

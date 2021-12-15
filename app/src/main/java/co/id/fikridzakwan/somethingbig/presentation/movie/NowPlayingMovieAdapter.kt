@@ -37,7 +37,7 @@ class NowPlayingMovieAdapter(private val onItemClickListener: (Movie) -> Unit) :
     inner class NowPlayingViewHolder(private val binding: ItemMovieSmallBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
-            Glide.with(itemView.context).load(BuildConfig.BASE_URL_IMAGE + movie.posterPath)
+            Glide.with(itemView.context).load(movie.posterPath)
                 .into(binding.imgPoster)
             binding.imgPoster.clipToOutline = true
             itemView.setOnClickListener {

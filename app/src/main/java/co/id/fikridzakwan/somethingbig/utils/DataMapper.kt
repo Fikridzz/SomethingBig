@@ -1,7 +1,14 @@
 package co.id.fikridzakwan.somethingbig.utils
 
+import co.id.fikridzakwan.somethingbig.BuildConfig
+import co.id.fikridzakwan.somethingbig.data.source.response.DetailResponse
 import co.id.fikridzakwan.somethingbig.data.source.response.ResultsItem
+import co.id.fikridzakwan.somethingbig.domain.model.Detail
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 object DataMapper {
 
@@ -13,9 +20,22 @@ object DataMapper {
             genreIds = genreIds?.map { it.getGenre() }?.joinToString(separator = ", ") { it } ?: "",
             popularity = popularity ?: 0.0,
             voteAverage = voteAverage ?: 0.0,
-            releaseDate = releaseDate ?: "",
-            posterPath = posterPath ?: "",
+            posterPath = posterPath?.loadImage() ?: "",
             backdropPath = backdropPath ?: ""
+        )
+
+    fun DetailResponse.mapToDetail(): Detail =
+        Detail(
+            id = id ?: 0,
+            title = title ?: "",
+            overview = overview ?: "",
+            genres = genres?.joinToString(separator = " • ") { it.name } ?: "",
+            runtime = runtime?.convertTime() ?: "",
+            popularity = popularity ?: 0.0,
+            voteAverage = voteAverage ?: 0.0,
+            releaseDate = releaseDate?.convertDate() ?: "",
+            posterPath = posterPath?.loadImage() ?: "",
+            backdropPath = backdropPath?.loadImageOriginal() ?: ""
         )
 
     private fun Int.getGenre() =
@@ -41,4 +61,33 @@ object DataMapper {
             37 -> "Western"
             else -> "No genres available for $this"
         }
+
+    private fun String.convertDate(): String {
+        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val convert = SimpleDateFormat("MMM, dd yyyy", Locale.getDefault())
+
+        // T06:54:57.744Z In order parse date to success
+        val date: Date = input.parse(this + "T06:54:57.744Z")!!
+
+        return convert.format(date)
+    }
+
+    private fun Int.convertTime(): String {
+        val hours = this / 60
+        val minute = this % 60
+
+        return "$hours hours $minute minute"
+    }
+
+    private fun String.loadImage(): String {
+        val url = BuildConfig.BASE_URL_IMAGE
+        val size = "w500"
+        return url + size + this
+    }
+
+    private fun String.loadImageOriginal(): String {
+        val url = BuildConfig.BASE_URL_IMAGE
+        val size = "original"
+        return url + size + this
+    }
 }

@@ -39,7 +39,7 @@ class TrendingMovieAdapter(
     inner class PopularViewHolder(private val binding: ItemMovieLargeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             with(binding) {
-                Glide.with(itemView.context).load(BuildConfig.BASE_URL_IMAGE + movie.posterPath).into(binding.imgPosterLarge)
+                Glide.with(itemView.context).load(movie.posterPath).into(binding.imgPosterLarge)
                 imgPosterLarge.clipToOutline = true
                 itemView.setOnClickListener {
                     onItemClickListener(movie)

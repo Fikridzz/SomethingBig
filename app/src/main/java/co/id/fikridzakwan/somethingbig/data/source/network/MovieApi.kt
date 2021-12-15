@@ -1,5 +1,6 @@
 package co.id.fikridzakwan.somethingbig.data.source.network
 
+import co.id.fikridzakwan.somethingbig.data.source.response.DetailResponse
 import co.id.fikridzakwan.somethingbig.data.source.response.MovieResponse
 import io.reactivex.Single
 import retrofit2.Response
@@ -10,4 +11,5 @@ class MovieApi @Inject constructor(private val apiClient: MovieApiClient) : Movi
     override fun getTrendingMovies(apiKey: String, page: Int): Single<Response<MovieResponse>> = apiClient.getTrendingMovies(apiKey, page)
     override fun getNowPlayingMovies(apiKey: String, page: Int): Single<Response<MovieResponse>> = apiClient.getNowPlayingMovies(apiKey, page)
     override fun getUpcomingMovies(apiKey: String, page: Int): Single<Response<MovieResponse>> = apiClient.getUpcomingMovies(apiKey, page)
+    override fun getDetailMovie(id: Int, apiKey: String): Single<Response<DetailResponse>> = apiClient.getDetailMovie(id, apiKey)
 }
