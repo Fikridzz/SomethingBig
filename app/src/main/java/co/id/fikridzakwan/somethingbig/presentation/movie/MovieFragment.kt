@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.graphics.ColorMatrixColorFilter
 
 import android.graphics.ColorMatrix
+import android.util.Log
 
 @AndroidEntryPoint
 class MovieFragment : Fragment() {
@@ -78,7 +79,7 @@ class MovieFragment : Fragment() {
 
                         // Random pick image backdrop from api
                         val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
-                        Glide.with(requireContext()).load(BuildConfig.BASE_URL_IMAGE + backdrop?.backdropPath).into(binding.imgBackdrop)
+                        Glide.with(requireContext()).load(backdrop?.backdropPath).into(binding.imgBackdrop)
 
                         // Make image view black and white
                         val matrix = ColorMatrix()

@@ -21,7 +21,7 @@ object DataMapper {
             popularity = popularity ?: 0.0,
             voteAverage = voteAverage ?: 0.0,
             posterPath = posterPath?.loadImage() ?: "",
-            backdropPath = backdropPath ?: ""
+            backdropPath = backdropPath?.loadImageOriginal() ?: ""
         )
 
     fun DetailResponse.mapToDetail(): Detail =
