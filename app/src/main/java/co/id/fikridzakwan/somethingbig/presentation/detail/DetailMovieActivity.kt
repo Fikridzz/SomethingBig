@@ -42,11 +42,15 @@ class DetailMovieActivity : AppCompatActivity() {
         viewModel.getDetail.observe(this, {
             if (it != null) {
                 when(it) {
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {
+                        binding.progressBar.showLoading()
+                    }
                     is Resource.Success -> {
                         populateDetail(it.data!!)
+                        binding.progressBar.hideLoading()
                     }
                     is Resource.Error -> {
+                        binding.progressBar.hideLoading()
                         Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                     }
                 }

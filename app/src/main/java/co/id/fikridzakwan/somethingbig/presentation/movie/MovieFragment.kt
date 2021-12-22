@@ -1,5 +1,6 @@
 package co.id.fikridzakwan.somethingbig.presentation.movie
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ class MovieFragment : Fragment() {
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MovieViewModel by viewModels()
+    private var listType = mutableListOf<Int>()
 
     private val trendingMovieAdapter: TrendingMovieAdapter by lazy {
         TrendingMovieAdapter(
@@ -76,6 +78,8 @@ class MovieFragment : Fragment() {
                     is Resource.Success -> {
                         binding.shimmerLayout1.visibility = View.GONE
                         trendingMovieAdapter.setData(it.data)
+//                        listType.add(1)
+//                        movieAdapter.setData(it.data)
 
                         // Random pick image backdrop from api
                         val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
@@ -107,6 +111,8 @@ class MovieFragment : Fragment() {
                     is Resource.Success -> {
                         binding.shimmerLayout2.visibility = View.GONE
                         nowPlayingMovieAdapter.setData(it.data)
+//                        listType.add(2)
+//                        movieAdapter.setData(it.data)
                     }
                     is Resource.Error -> {
                         binding.shimmerLayout2.visibility = View.GONE
@@ -127,6 +133,8 @@ class MovieFragment : Fragment() {
                     is Resource.Success -> {
                         binding.shimmerLayout3.visibility = View.GONE
                         upcomingMovieAdapter.setData(it.data)
+//                        listType.add(3)
+//                        movieAdapter.setData(it.data)
                     }
                     is Resource.Error -> {
                         binding.shimmerLayout3.visibility = View.GONE

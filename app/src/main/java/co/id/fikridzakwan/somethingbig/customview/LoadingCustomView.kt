@@ -3,6 +3,7 @@ package co.id.fikridzakwan.somethingbig.customview
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import co.id.fikridzakwan.somethingbig.R
@@ -13,18 +14,18 @@ class LoadingCustomView @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs) {
 
-    private val progressBar: ProgressBar
+    private val loading: LinearLayout
 
     init {
         inflate(context, R.layout.layout_loading, this)
-        progressBar = findViewById(R.id.progress_bar)
+        loading = findViewById(R.id.linear_loading)
     }
 
     fun showLoading() {
-        progressBar.visibility = View.VISIBLE
+        loading.visibility = View.VISIBLE
     }
 
     fun hideLoading() {
-        progressBar.visibility = View.GONE
+        loading.visibility = View.GONE
     }
 }
