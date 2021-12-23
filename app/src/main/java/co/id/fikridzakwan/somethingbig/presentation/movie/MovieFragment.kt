@@ -19,15 +19,15 @@ import android.graphics.ColorMatrixColorFilter
 
 import android.graphics.ColorMatrix
 import android.util.Log
+import androidx.navigation.fragment.findNavController
+import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 @AndroidEntryPoint
-class MovieFragment : Fragment() {
+class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
-    private var _binding: FragmentMovieBinding? = null
-    private val binding get() = _binding!!
     private val viewModel: MovieViewModel by viewModels()
-    private var listType = mutableListOf<Int>()
 
     private val trendingMovieAdapter: TrendingMovieAdapter by lazy {
         TrendingMovieAdapter(
@@ -53,103 +53,103 @@ class MovieFragment : Fragment() {
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentMovieBinding.inflate(layoutInflater, container, false)
-        return binding.root
+    override fun getViewBinding() = FragmentMovieBinding.inflate(layoutInflater)
+
+    override fun initUI() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initProcess() {
         viewModel.getPopularMovies()
         viewModel.getNowPlayingMovies()
         viewModel.getUpcomingMovies()
+    }
 
-        if (activity != null) {
+    override fun initAction() {
+        binding.apply {
+            headerNowPlaying.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie) }
+            headerUpcoming.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie) }
+        }
+    }
 
-            viewModel.getTrending.observe(viewLifecycleOwner, {
-                when(it) {
-                    is Resource.Loading -> {
-                        binding.shimmerLayout1.visibility = View.VISIBLE
-                    }
-                    is Resource.Success -> {
-                        binding.shimmerLayout1.visibility = View.GONE
-                        trendingMovieAdapter.setData(it.data)
+    override fun initObservers() {
+        viewModel.getTrending.observe(viewLifecycleOwner, {
+            when(it) {
+                is Resource.Loading -> {
+                    binding.shimmerLayout1.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding.shimmerLayout1.visibility = View.GONE
+                    trendingMovieAdapter.setData(it.data)
 //                        listType.add(1)
 //                        movieAdapter.setData(it.data)
 
-                        // Random pick image backdrop from api
-                        val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
-                        Glide.with(requireContext())
-                            .load(backdrop?.backdropPath)
-                            .transition(DrawableTransitionOptions.withCrossFade(1000))
-                            .into(binding.imgBackdrop)
+                    // Random pick image backdrop from api
+                    val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
+                    Glide.with(requireContext())
+                        .load(backdrop?.backdropPath)
+                        .transition(DrawableTransitionOptions.withCrossFade(1000))
+                        .into(binding.imgBackdrop)
 
-                        // Make image view black and white
-                        val matrix = ColorMatrix()
-                        matrix.setSaturation(0f)
+                    // Make image view black and white
+                    val matrix = ColorMatrix()
+                    matrix.setSaturation(0f)
 
-                        val filter = ColorMatrixColorFilter(matrix)
-                        binding.imgBackdrop.colorFilter = filter
-                    }
-                    is Resource.Error -> {
-                        binding.shimmerLayout1.visibility = View.GONE
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    }
+                    val filter = ColorMatrixColorFilter(matrix)
+                    binding.imgBackdrop.colorFilter = filter
                 }
-            })
-            with(binding.rvPopular) {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = trendingMovieAdapter
+                is Resource.Error -> {
+                    binding.shimmerLayout1.visibility = View.GONE
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                }
             }
+        })
+        with(binding.rvPopular) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = trendingMovieAdapter
+        }
 
-            viewModel.getNowPlaying.observe(viewLifecycleOwner, {
-                when(it) {
-                    is Resource.Loading -> {
-                        binding.shimmerLayout2.visibility = View.VISIBLE
-                    }
-                    is Resource.Success -> {
-                        binding.shimmerLayout2.visibility = View.GONE
-                        nowPlayingMovieAdapter.setData(it.data)
+        viewModel.getNowPlaying.observe(viewLifecycleOwner, {
+            when(it) {
+                is Resource.Loading -> {
+                    binding.shimmerLayout2.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding.shimmerLayout2.visibility = View.GONE
+                    nowPlayingMovieAdapter.setData(it.data)
 //                        listType.add(2)
 //                        movieAdapter.setData(it.data)
-                    }
-                    is Resource.Error -> {
-                        binding.shimmerLayout2.visibility = View.GONE
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    }
                 }
-            })
-            with(binding.rvNowPlaying) {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = nowPlayingMovieAdapter
+                is Resource.Error -> {
+                    binding.shimmerLayout2.visibility = View.GONE
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                }
             }
+        })
+        with(binding.rvNowPlaying) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = nowPlayingMovieAdapter
+        }
 
-            viewModel.getUpcoming.observe(viewLifecycleOwner, {
-                when(it) {
-                    is Resource.Loading -> {
-                        binding.shimmerLayout3.visibility = View.VISIBLE
-                    }
-                    is Resource.Success -> {
-                        binding.shimmerLayout3.visibility = View.GONE
-                        upcomingMovieAdapter.setData(it.data)
+        viewModel.getUpcoming.observe(viewLifecycleOwner, {
+            when(it) {
+                is Resource.Loading -> {
+                    binding.shimmerLayout3.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding.shimmerLayout3.visibility = View.GONE
+                    upcomingMovieAdapter.setData(it.data)
 //                        listType.add(3)
 //                        movieAdapter.setData(it.data)
-                    }
-                    is Resource.Error -> {
-                        binding.shimmerLayout3.visibility = View.GONE
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    }
                 }
-            })
-            with(binding.rvUpcoming) {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = upcomingMovieAdapter
+                is Resource.Error -> {
+                    binding.shimmerLayout3.visibility = View.GONE
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                }
             }
+        })
+        with(binding.rvUpcoming) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = upcomingMovieAdapter
         }
     }
 }

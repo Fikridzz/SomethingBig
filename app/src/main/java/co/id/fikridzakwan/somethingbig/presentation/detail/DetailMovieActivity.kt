@@ -39,6 +39,11 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
     }
 
     override fun initAction() {
+        binding.apply {
+            btnBack.setOnClickListener {
+                onBackPressed()
+            }
+        }
     }
 
     override fun initProcess() {

@@ -17,7 +17,7 @@
             <ImageView
                 android:id="@+id/img_backdrop"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="280dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -26,18 +26,29 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="280dp"
                 android:background="#80000000"
                 app:layout_constraintEnd_toEndOf="@id/img_backdrop"
                 app:layout_constraintStart_toStartOf="@id/img_backdrop"
                 app:layout_constraintTop_toTopOf="@id/img_backdrop" />
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_previous"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="290dp" />
+                app:layout_constraintGuide_begin="228dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -156,15 +167,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="440dp" />
+                app:layout_constraintGuide_begin="400dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <co.id.fikridzakwan.somethingbig.customview.LoadingCustomView
-        android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <co.id.fikridzakwan.somethingbig.customview.LoadingCustomView
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
