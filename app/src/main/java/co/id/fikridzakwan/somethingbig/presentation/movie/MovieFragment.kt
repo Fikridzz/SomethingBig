@@ -19,6 +19,7 @@ import android.graphics.ColorMatrixColorFilter
 
 import android.graphics.ColorMatrix
 import android.util.Log
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 @AndroidEntryPoint
 class MovieFragment : Fragment() {
@@ -83,7 +84,10 @@ class MovieFragment : Fragment() {
 
                         // Random pick image backdrop from api
                         val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
-                        Glide.with(requireContext()).load(backdrop?.backdropPath).into(binding.imgBackdrop)
+                        Glide.with(requireContext())
+                            .load(backdrop?.backdropPath)
+                            .transition(DrawableTransitionOptions.withCrossFade(1000))
+                            .into(binding.imgBackdrop)
 
                         // Make image view black and white
                         val matrix = ColorMatrix()
