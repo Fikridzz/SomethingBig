@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/src_movie"
         android:layout_width="0dp"
         android:layout_margin="16dp"
