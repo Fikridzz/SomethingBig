@@ -9,7 +9,7 @@ import co.id.fikridzakwan.somethingbig.databinding.ItemMoreMovieBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import com.bumptech.glide.Glide
 
-class MoreMovieAdapter(onItemClickListener: (Movie) -> Unit) : RecyclerView.Adapter<MoreMovieAdapter.MoreViewHolder>() {
+class MoreMovieAdapter(private val onItemClickListener: (Movie) -> Unit) : RecyclerView.Adapter<MoreMovieAdapter.MoreViewHolder>() {
 
     private val listItem = ArrayList<Movie>()
 
@@ -32,7 +32,7 @@ class MoreMovieAdapter(onItemClickListener: (Movie) -> Unit) : RecyclerView.Adap
         return listItem.size
     }
 
-    class MoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemMoreMovieBinding.bind(itemView)
         fun bind(data: Movie) {
             binding.apply {
@@ -41,6 +41,9 @@ class MoreMovieAdapter(onItemClickListener: (Movie) -> Unit) : RecyclerView.Adap
                 tvDescription.text = data.overview
                 tvDate.text = data.releaseDate
                 tvGenres.text = data.genreIds
+            }
+            itemView.setOnClickListener {
+                onItemClickListener(data)
             }
         }
     }
