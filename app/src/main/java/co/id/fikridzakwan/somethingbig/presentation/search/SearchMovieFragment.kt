@@ -5,13 +5,85 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.somethingbig.data.Resource
+import co.id.fikridzakwan.somethingbig.databinding.FragmentSearchMovieBinding
+import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
+import co.id.fikridzakwan.somethingbig.presentation.main.MainActivity
+import co.id.fikridzakwan.somethingbig.presentation.more.MoreMovieAdapter
+import co.id.fikridzakwan.somethingbig.utils.BaseFragment
+import com.jakewharton.rxbinding2.widget.RxSearchView
+import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class SearchFragment : Fragment() {
+@AndroidEntryPoint
+class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_movie, container, false)
+    private val moreMovieAdapter: MoreMovieAdapter by lazy {
+        MoreMovieAdapter(
+            onItemClickListener = {
+                DetailMovieActivity.start(requireContext(), it.id)
+            }
+        )
+    }
+
+    private val viewModel: SearchMovieViewModel by viewModels()
+
+    override fun getViewBinding() = FragmentSearchMovieBinding.inflate(layoutInflater)
+
+    override fun initUI() {
+        binding.apply {
+            with(rvSearch) {
+                adapter = moreMovieAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+
+            toolbar.setTitle("Search")
+        }
+    }
+
+    override fun initProcess() {
+        binding.apply {
+            srcMovie.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    viewModel.searchMovie(query)
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return false
+                }
+            })
+        }
+    }
+
+    override fun initAction() {
+        binding.apply {
+            toolbar.btnBack.setOnClickListener { findNavController().popBackStack() }
+        }
+    }
+
+    override fun initObservers() {
+        viewModel.getResult.observe(viewLifecycleOwner, { value ->
+            if (value != null) {
+                when (value) {
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        moreMovieAdapter.setData(value.data)
+                    }
+                    is Resource.Error -> {
+                        showToast(value.message.toString())
+                    }
+                }
+            }
+        })
     }
 }

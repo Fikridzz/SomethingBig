@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.more.MoreMovieFragment">
 
-    <co.id.fikridzakwan.somethingbig.customview.ToolbarCustomView
+    <co.id.fikridzakwan.somethingbig.customview.SomethingBigToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,22 +14,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/src_movie"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/bg_search_fragment"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/src_movie"
-        tools:listitem="@layout/item_more" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:listitem="@layout/item_more_movie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

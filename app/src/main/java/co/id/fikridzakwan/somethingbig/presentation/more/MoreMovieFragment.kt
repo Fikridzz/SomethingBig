@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMoreMovieBinding
+import co.id.fikridzakwan.somethingbig.presentation.main.MainActivity
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 
 class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
+
     override fun getViewBinding() = FragmentMoreMovieBinding.inflate(layoutInflater)
 
     override fun initUI() {

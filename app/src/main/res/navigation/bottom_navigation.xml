@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_nav_movie_to_nav_more_movie"
             app:destination="@id/nav_more_movie" />
+        <action
+            android:id="@+id/action_nav_movie_to_nav_search_movie"
+            app:destination="@id/nav_search_movie" />
     </fragment>
     <fragment
         android:id="@+id/nav_more_movie"
         android:name="co.id.fikridzakwan.somethingbig.presentation.more.MoreMovieFragment"
         android:label="fragment_more_movie"
         tools:layout="@layout/fragment_more_movie" />
+    <fragment
+        android:id="@+id/nav_search_movie"
+        android:name="co.id.fikridzakwan.somethingbig.presentation.search.SearchFragment"
+        android:label="fragment_search_movie"
+        tools:layout="@layout/fragment_search_movie" />
 </navigation>

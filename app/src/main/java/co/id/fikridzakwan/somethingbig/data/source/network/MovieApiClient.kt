@@ -33,4 +33,11 @@ interface MovieApiClient {
         @Path("id") id: Int,
         @Query("api_key") apiKey: String
     ): Single<Response<DetailResponse>>
+
+    @GET("search/movie")
+    fun searchMovies(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Single<Response<MovieResponse>>
 }

@@ -63,15 +63,25 @@
             app:layout_constraintStart_toStartOf="@id/text_welcome"
             app:layout_constraintTop_toBottomOf="@id/text_welcome" />
 
-        <SearchView
-            android:id="@+id/srcMovie"
+        <LinearLayout
+            android:id="@+id/header_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="16dp"
+            android:gravity="start"
+            android:padding="12dp"
             android:background="@drawable/bg_search"
-            app:layout_constraintEnd_toEndOf="@id/text_description"
+            app:layout_constraintTop_toBottomOf="@id/text_description"
             app:layout_constraintStart_toStartOf="@id/text_description"
-            app:layout_constraintTop_toBottomOf="@id/text_description" />
+            app:layout_constraintEnd_toEndOf="@id/text_description">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/header_trending"
@@ -80,9 +90,9 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@id/srcMovie"
-            app:layout_constraintStart_toStartOf="@id/srcMovie"
-            app:layout_constraintTop_toBottomOf="@id/srcMovie">
+            app:layout_constraintEnd_toEndOf="@id/header_search"
+            app:layout_constraintStart_toStartOf="@id/header_search"
+            app:layout_constraintTop_toBottomOf="@id/header_search">
 
             <TextView
                 android:id="@+id/text_trending"

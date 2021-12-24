@@ -22,6 +22,8 @@
         android:layout_alignParentBottom="true"
         app:itemIconTint="@color/color_light_blue"
         app:itemTextColor="@color/color_light_blue"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_bottom_nav" />
 
 </RelativeLayout>

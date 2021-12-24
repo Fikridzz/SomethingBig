@@ -13,4 +13,6 @@ interface MovieUseCase {
     fun getUpcomingMovies(): Single<List<Movie>>
 
     fun getDetailMovie(id: Int): Single<Detail>
+
+    fun searchMovies(query: String) : Single<List<Movie>>
 }

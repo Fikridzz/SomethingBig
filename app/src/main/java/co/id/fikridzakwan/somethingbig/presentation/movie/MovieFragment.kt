@@ -19,9 +19,11 @@ import android.graphics.ColorMatrixColorFilter
 
 import android.graphics.ColorMatrix
 import android.transition.TransitionInflater
+import android.transition.Visibility
 import android.util.Log
 import androidx.navigation.fragment.findNavController
 import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.somethingbig.presentation.main.MainActivity
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
@@ -73,6 +75,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
             // Set animation on fragment when click header movie
             headerNowPlaying.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie) }
             headerUpcoming.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie) }
+            headerSearch.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_search_movie) }
         }
     }
 

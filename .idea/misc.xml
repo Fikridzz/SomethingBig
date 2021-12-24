@@ -11,6 +11,7 @@
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_progress.xml" value="0.22685185185185186" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_rounded_image.xml" value="0.2462962962962963" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_search.xml" value="0.2462962962962963" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_search_fragment.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/ic_forward.xml" value="0.2574074074074074" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2574074074074074" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/ic_tmdb_logo.xml" value="0.24351851851851852" />
@@ -25,6 +26,7 @@
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/fragment_movie.xml" value="0.2074074074074074" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/fragment_search_movie.xml" value="0.264" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/item_more.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/item_more_movie.xml" value="0.259375" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/item_movie_large.xml" value="0.259375" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/item_movie_small.xml" value="0.259375" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/layout_load.xml" value="0.259375" />

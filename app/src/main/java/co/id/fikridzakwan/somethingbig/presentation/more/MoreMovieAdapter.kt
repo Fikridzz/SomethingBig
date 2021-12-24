@@ -1,9 +1,11 @@
 package co.id.fikridzakwan.somethingbig.presentation.more
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import co.id.fikridzakwan.somethingbig.databinding.ItemMoreBinding
+import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.somethingbig.databinding.ItemMoreMovieBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import com.bumptech.glide.Glide
 
@@ -18,10 +20,8 @@ class MoreMovieAdapter(onItemClickListener: (Movie) -> Unit) : RecyclerView.Adap
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoreViewHolder {
-        val view = ItemMoreBinding.inflate(LayoutInflater.from(parent.context))
-        return MoreViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoreViewHolder =
+        MoreViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_more_movie, parent, false))
 
     override fun onBindViewHolder(holder: MoreViewHolder, position: Int) {
         val data = listItem[position]
@@ -32,7 +32,8 @@ class MoreMovieAdapter(onItemClickListener: (Movie) -> Unit) : RecyclerView.Adap
         return listItem.size
     }
 
-    class MoreViewHolder(private val binding: ItemMoreBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val binding = ItemMoreMovieBinding.bind(itemView)
         fun bind(data: Movie) {
             binding.apply {
                 Glide.with(itemView.context).load(data.posterPath).into(imgPoster)
