@@ -64,13 +64,14 @@ object DataMapper {
         }
 
     private fun String.convertDate(): String {
-        val input = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-        val convert = SimpleDateFormat("MMM, dd yyyy", Locale.getDefault())
-
-        // T06:54:57.744Z In order parse date to success
-        val date: Date = input.parse(this + "T06:54:57.744Z")!!
-
-        return convert.format(date)
+        return if (this == "") {
+            "Data kosong"
+        } else {
+            val input = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(this)
+            val date = Date(input.time)
+            val convert = SimpleDateFormat("MMM, dd yyyy", Locale.getDefault())
+            convert.format(date)
+        }
     }
 
     private fun Int.convertTime(): String {
