@@ -1,6 +1,7 @@
 package co.id.fikridzakwan.somethingbig.customview
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatButton
@@ -10,22 +11,31 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import co.id.fikridzakwan.somethingbig.R
 
-class ToolbarCustomView @JvmOverloads constructor(
+class SomethingBigToolbar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs) {
 
-    private val btnBack: AppCompatImageButton
-    private val tvTitle: AppCompatTextView
+    var attributeSet: TypedArray
+    var toolbar: ConstraintLayout
+    var tvTitle: AppCompatTextView
+    var btnBack: AppCompatImageButton
+    var btnIcon: AppCompatImageButton
 
     init {
         inflate(context, R.layout.layout_toolbar, this)
-        btnBack = findViewById(R.id.btn_back)
+        attributeSet = context.obtainStyledAttributes(attrs, R.styleable.SomethingBigToolbar)
+
+        toolbar = findViewById(R.id.toolbar)
         tvTitle = findViewById(R.id.tv_title_toolbar)
+        btnBack = findViewById(R.id.btn_back)
+        btnIcon = findViewById(R.id.btn_icon)
+
+        attributeSet.recycle()
     }
 
-    fun setTitle(title: String) {
-        tvTitle.text = title
+    fun setTitle(value: String) {
+        tvTitle.text = value
     }
 
     fun backPressed() {

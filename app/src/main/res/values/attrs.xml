@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SomethingBigToolbar">
+        <attr name="toolbarTitle" format="string"/>
+        <attr name="toolbarBackIcon" format="reference"/>
+        <attr name="toolbarIcon" format="reference" />
+    </declare-styleable>
+
+</resources>
