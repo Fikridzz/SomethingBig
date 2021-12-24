@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.graphics.ColorMatrixColorFilter
 
 import android.graphics.ColorMatrix
+import android.transition.TransitionInflater
 import android.util.Log
 import androidx.navigation.fragment.findNavController
 import co.id.fikridzakwan.somethingbig.R
@@ -56,6 +57,9 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     override fun getViewBinding() = FragmentMovieBinding.inflate(layoutInflater)
 
     override fun initUI() {
+        val inflater = TransitionInflater.from(requireContext())
+        exitTransition = inflater.inflateTransition(R.transition.slide_left)
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
     }
 
     override fun initProcess() {
@@ -66,6 +70,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
     override fun initAction() {
         binding.apply {
+            // Set animation on fragment when click header movie
             headerNowPlaying.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie) }
             headerUpcoming.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie) }
         }
