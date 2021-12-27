@@ -36,6 +36,11 @@ class MovieRepository @Inject constructor(private val movieApi: MovieApi) : IMov
             .map { it.body() }
     }
 
+    override fun getMoreMovie(value: String): Single<List<ResultsItem>> {
+        return movieApi.getMoreMovie(value, BuildConfig.API_KEY, 1)
+            .map { it.body()?.results }
+    }
+
     override fun searchMovies(query: String): Single<List<ResultsItem>> {
         return movieApi.searchMovies(BuildConfig.API_KEY, query, 1)
             .map { it.body()?.results }

@@ -76,9 +76,7 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
         viewModel.getResult.observe(viewLifecycleOwner, { value ->
             if (value != null) {
                 when (value) {
-                    is Resource.Loading -> {
-                        binding.progressLinear.visible()
-                    }
+                    is Resource.Loading -> binding.progressLinear.visible()
                     is Resource.Success -> {
                         binding.progressLinear.gone()
                         moreMovieAdapter.setData(value.data)

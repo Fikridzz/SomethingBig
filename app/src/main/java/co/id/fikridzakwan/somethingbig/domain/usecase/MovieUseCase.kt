@@ -14,5 +14,7 @@ interface MovieUseCase {
 
     fun getDetailMovie(id: Int): Single<Detail>
 
+    fun getMoreMovie(value: String) : Single<List<Movie>>
+
     fun searchMovies(query: String) : Single<List<Movie>>
 }

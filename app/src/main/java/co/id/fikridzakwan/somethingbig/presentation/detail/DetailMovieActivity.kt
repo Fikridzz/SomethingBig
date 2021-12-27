@@ -56,9 +56,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
         viewModel.getDetail.observe(this, {
             if (it != null) {
                 when(it) {
-                    is Resource.Loading -> {
-                        binding.progressBar.showLoading()
-                    }
+                    is Resource.Loading -> binding.progressBar.showLoading()
                     is Resource.Success -> {
                         populateDetail(it.data!!)
                         binding.progressBar.hideLoading()

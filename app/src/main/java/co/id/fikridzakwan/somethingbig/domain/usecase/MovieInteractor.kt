@@ -35,6 +35,11 @@ class MovieInteractor @Inject constructor(private val repository: IMovieReposito
             .map { it.mapToDetail() }
     }
 
+    override fun getMoreMovie(value: String): Single<List<Movie>> {
+        return repository.getMoreMovie(value)
+            .map { it.map { it.mapToMovie() } }
+    }
+
     override fun searchMovies(query: String): Single<List<Movie>> {
         return repository.searchMovies(query)
             .map { it.map { it.mapToMovie() } }

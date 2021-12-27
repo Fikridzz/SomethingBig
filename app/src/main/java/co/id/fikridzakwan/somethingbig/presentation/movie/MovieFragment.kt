@@ -11,19 +11,21 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.id.fikridzakwan.somethingbig.BuildConfig
 import co.id.fikridzakwan.somethingbig.data.Resource
-import co.id.fikridzakwan.somethingbig.databinding.FragmentMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import android.graphics.ColorMatrixColorFilter
-
 import android.graphics.ColorMatrix
 import android.transition.TransitionInflater
 import android.transition.Visibility
 import android.util.Log
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.somethingbig.databinding.FragmentMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.main.MainActivity
+import co.id.fikridzakwan.somethingbig.presentation.more.MoreMovieFragment
+import co.id.fikridzakwan.somethingbig.utils.AppConstants
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
@@ -72,9 +74,16 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
     override fun initAction() {
         binding.apply {
-            // Set animation on fragment when click header movie
-            headerNowPlaying.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie) }
-            headerUpcoming.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie) }
+
+            headerNowPlaying.setOnClickListener {
+                // Parsing string from fragment to another fragment
+                val bundle = bundleOf(AppConstants.EXTRA_TYPE to "now_playing")
+                findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie, bundle)
+            }
+            headerUpcoming.setOnClickListener {
+                val bundle = bundleOf(AppConstants.EXTRA_TYPE to "upcoming")
+                findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie, bundle)
+            }
             headerSearch.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_search_movie) }
         }
     }
@@ -118,9 +127,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
         viewModel.getNowPlaying.observe(viewLifecycleOwner, {
             when(it) {
-                is Resource.Loading -> {
-                    binding.shimmerLayout2.visibility = View.VISIBLE
-                }
+                is Resource.Loading -> binding.shimmerLayout2.visibility = View.VISIBLE
                 is Resource.Success -> {
                     binding.shimmerLayout2.visibility = View.GONE
                     nowPlayingMovieAdapter.setData(it.data)

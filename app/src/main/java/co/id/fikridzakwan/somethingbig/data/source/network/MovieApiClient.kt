@@ -28,6 +28,13 @@ interface MovieApiClient {
         @Query("page") page: Int
     ): Single<Response<MovieResponse>>
 
+    @GET("movie/{value}")
+    fun getMoreMovie(
+        @Path("value") value: String,
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int
+    ): Single<Response<MovieResponse>>
+
     @GET("movie/{id}")
     fun getDetailMovie(
         @Path("id") id: Int,

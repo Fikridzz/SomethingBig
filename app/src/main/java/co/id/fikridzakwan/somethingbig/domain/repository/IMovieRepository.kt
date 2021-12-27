@@ -15,5 +15,7 @@ interface IMovieRepository {
 
     fun getDetailMovie(id: Int): Single<DetailResponse>
 
+    fun getMoreMovie(value: String) : Single<List<ResultsItem>>
+
     fun searchMovies(query: String) : Single<List<ResultsItem>>
 }
