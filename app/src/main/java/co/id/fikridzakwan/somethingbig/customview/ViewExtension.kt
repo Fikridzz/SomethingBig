@@ -17,6 +17,12 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
 fun AppCompatImageView.loadImage(url: String, context: Context) {
+
+    val circularProgressDrawable = CircularProgressDrawable(context)
+    circularProgressDrawable.strokeWidth = 5f
+    circularProgressDrawable.centerRadius = 30f
+    circularProgressDrawable.start()
+
         Glide
             .with(context)
             .load(url)
@@ -30,6 +36,7 @@ fun AppCompatImageView.loadImage(url: String, context: Context) {
                     return false
                 }
             })
+            .placeholder(circularProgressDrawable)
             .into(this)
 
 }
