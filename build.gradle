@@ -37,4 +37,5 @@ ext {
 
     materialVersion = '1.4.0'
 
+    pagingVersion = '3.0.0'
 }

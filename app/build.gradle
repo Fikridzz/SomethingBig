@@ -54,6 +54,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.21"
     implementation "com.google.android.material:material:$materialVersion"
 
+    // Paging
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
@@ -22,6 +23,8 @@ fun AppCompatImageView.loadImage(url: String, context: Context) {
     circularProgressDrawable.strokeWidth = 5f
     circularProgressDrawable.centerRadius = 30f
     circularProgressDrawable.start()
+
+    val options = RequestOptions().error(R.drawable.ic_broken_image)
 
         Glide
             .with(context)
@@ -36,6 +39,7 @@ fun AppCompatImageView.loadImage(url: String, context: Context) {
                     return false
                 }
             })
+            .apply(options)
             .placeholder(circularProgressDrawable)
             .into(this)
 
