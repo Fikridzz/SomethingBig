@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.somethingbig.customview.gone
+import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentSearchMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
@@ -54,6 +56,7 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
         binding.srcMovie.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.searchMovie(query)
+                binding.progressLinear.visible()
                 return true
             }
 
@@ -73,11 +76,15 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
         viewModel.getResult.observe(viewLifecycleOwner, { value ->
             if (value != null) {
                 when (value) {
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {
+                        binding.progressLinear.visible()
+                    }
                     is Resource.Success -> {
+                        binding.progressLinear.gone()
                         moreMovieAdapter.setData(value.data)
                     }
                     is Resource.Error -> {
+                        binding.progressLinear.gone()
                         showToast(value.message.toString())
                     }
                 }

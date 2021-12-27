@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.id.fikridzakwan.somethingbig.BuildConfig
+import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.databinding.ItemMovieSmallBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import com.bumptech.glide.Glide
@@ -36,12 +37,13 @@ class UpcomingMovieAdapter(private val onItemClickListener: (Movie) -> Unit) :
 
     inner class UpcomingViewHolder(private val binding: ItemMovieSmallBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie) {
-            Glide.with(itemView.context).load(movie.posterPath)
-                .into(binding.imgPoster)
-            binding.imgPoster.clipToOutline = true
+        fun bind(data: Movie) {
+            binding.apply {
+                imgPoster.loadImage(data.posterPath, itemView.context)
+                imgPoster.clipToOutline = true
+            }
             itemView.setOnClickListener {
-                onItemClickListener(movie)
+                onItemClickListener(data)
             }
         }
     }

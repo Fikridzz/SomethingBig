@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.somethingbig.customview.gone
+import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.databinding.ActivityMainBinding
 import co.id.fikridzakwan.somethingbig.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,10 +40,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun showBottomNav() {
-        binding.navView.visibility = View.VISIBLE
+        binding.navView.visible()
     }
 
     private fun hideBottomNav() {
-        binding.navView.visibility = View.GONE
+        binding.navView.gone()
     }
 }

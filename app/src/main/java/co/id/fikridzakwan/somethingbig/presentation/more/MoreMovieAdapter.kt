@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.databinding.ItemMoreMovieBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import com.bumptech.glide.Glide
@@ -36,7 +37,7 @@ class MoreMovieAdapter(private val onItemClickListener: (Movie) -> Unit) : Recyc
         val binding = ItemMoreMovieBinding.bind(itemView)
         fun bind(data: Movie) {
             binding.apply {
-                Glide.with(itemView.context).load(data.posterPath).into(imgPoster)
+                imgPoster.loadImage(data.posterPath, itemView.context)
                 tvTitle.text = data.title
                 tvDescription.text = data.overview
                 tvDate.text = data.releaseDate

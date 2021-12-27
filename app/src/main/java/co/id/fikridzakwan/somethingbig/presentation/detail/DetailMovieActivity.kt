@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import co.id.fikridzakwan.somethingbig.BuildConfig
 import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.customview.LoadingCustomView
+import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.ActivityDetailMovieBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Detail
@@ -73,12 +74,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
 
     private fun populateDetail(data: Detail) {
         binding.apply {
-            Glide.with(this@DetailMovieActivity)
-                .load(data.backdropPath)
-                .into(imgBackdrop)
-            Glide.with(this@DetailMovieActivity)
-                .load(data.posterPath)
-                .into(imgPoster)
+            imgBackdrop.loadImage(data.posterPath, this@DetailMovieActivity)
+            imgPoster.loadImage(data.posterPath, this@DetailMovieActivity)
             imgPoster.clipToOutline = true
             tvTitle.text = data.title
             tvGenres.text = data.genres

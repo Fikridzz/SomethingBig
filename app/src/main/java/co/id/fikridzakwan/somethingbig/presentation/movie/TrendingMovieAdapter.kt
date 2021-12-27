@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.id.fikridzakwan.somethingbig.BuildConfig
+import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.databinding.ItemMovieLargeBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import com.bumptech.glide.Glide
@@ -37,12 +38,12 @@ class TrendingMovieAdapter(
     }
 
     inner class PopularViewHolder(private val binding: ItemMovieLargeBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie) {
+        fun bind(data: Movie) {
             with(binding) {
-                Glide.with(itemView.context).load(movie.posterPath).into(binding.imgPosterLarge)
+                imgPosterLarge.loadImage(data.posterPath, itemView.context)
                 imgPosterLarge.clipToOutline = true
                 itemView.setOnClickListener {
-                    onItemClickListener(movie)
+                    onItemClickListener(data)
                 }
             }
         }
