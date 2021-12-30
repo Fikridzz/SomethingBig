@@ -78,7 +78,11 @@ object DataMapper {
         val hours = this / 60
         val minute = this % 60
 
-        return "$hours hours $minute minute"
+        return if (hours == 0) {
+            "$minute minute"
+        } else {
+            "$hours hours $minute minute"
+        }
     }
 
     private fun String.loadImage(): String {
