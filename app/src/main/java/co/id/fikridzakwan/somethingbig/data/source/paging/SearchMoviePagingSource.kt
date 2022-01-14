@@ -8,11 +8,21 @@ import co.id.fikridzakwan.somethingbig.data.source.response.MovieResponse
 import co.id.fikridzakwan.somethingbig.data.source.response.ResultsItem
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
+import java.io.IOException
+
+/**
+ * There is tw diffrent way to use paging in rx that i found
+ * 1: Map LoadResult in loadSingle Reference Android Developer
+ * 2: Using function as LoadResult Reference Medium
+ */
 
 class SearchMoviePagingSource(
     private val service: MovieApiClient,
     private val query: String
 ) : RxPagingSource<Int, ResultsItem>() {
+
+    // Version 1: Using loadSingle to LoadResult
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, ResultsItem>> {
         val position = params.key ?: 1
         val queryRequest = query
@@ -20,15 +30,20 @@ class SearchMoviePagingSource(
         return service.searchMovies(BuildConfig.API_KEY, queryRequest, position)
             .subscribeOn(Schedulers.io())
             .map { it.body() }
-            .map { totalResult(it, position) }
-    }
-
-    private fun totalResult(data: MovieResponse, position: Int) : LoadResult<Int, ResultsItem> {
-        return LoadResult.Page(
-            data = data.results!!,
-            prevKey = if (position == 1) null else position -1,
-            nextKey = if (position == data.totalPages) null else position +1
-        )
+            .map<LoadResult<Int, ResultsItem>> { result ->
+                LoadResult.Page(
+                    data = result.results!!,
+                    prevKey = if (position == 1) null else position -1,
+                    nextKey = if (position == result.totalPages) null else position +1
+                )
+            }
+            .onErrorReturn { e ->
+                when (e) {
+                    is IOException -> LoadResult.Error(e)
+                    is HttpException -> LoadResult.Error(e)
+                    else -> throw e
+                }
+            }
     }
 
     override fun getRefreshKey(state: PagingState<Int, ResultsItem>): Int? {

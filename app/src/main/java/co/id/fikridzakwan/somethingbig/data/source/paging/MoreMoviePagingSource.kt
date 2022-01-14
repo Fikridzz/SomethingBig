@@ -9,6 +9,14 @@ import co.id.fikridzakwan.somethingbig.data.source.response.ResultsItem
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
+import java.io.IOException
+
+/**
+ * There is tw0 different way to use paging in rx that i found
+ * 1: Using function as LoadResult
+ * 2: Map LoadResult in loadSingle
+ */
 
 class MoreMoviePagingSource(
     private val service: MovieApiClient,
@@ -23,8 +31,16 @@ class MoreMoviePagingSource(
             .subscribeOn(Schedulers.io())
             .map { it.body() }
             .map { toLoadResult(it, position) }
+            .onErrorReturn { e ->
+                when (e) {
+                    is IOException -> LoadResult.Error(e)
+                    is HttpException -> LoadResult.Error(e)
+                    else -> throw e
+                }
+            }
     }
 
+    // Version 2: Using function
     private fun toLoadResult(data: MovieResponse, position: Int) : LoadResult<Int, ResultsItem> {
         return LoadResult.Page(
             data = data.results!!,
