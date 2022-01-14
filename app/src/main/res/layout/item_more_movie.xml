@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="16dp"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_poster"
+            android:layout_width="145dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintStart_toEndOf="@id/img_poster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/img_poster"
+            app:layout_constraintBottom_toBottomOf="@id/img_poster">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/SomethingBigTextViewTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:ellipsize="end"
+                android:maxLines="2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/SomethingBigTextViewGray"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Des, 11 2021"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintStart_toStartOf="@id/tv_title"
+                app:layout_constraintEnd_toEndOf="@id/tv_title" />
+
+            <TextView
+                android:id="@+id/tv_genres"
+                style="@style/SomethingBigTextViewGray"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Genre1, Genre2, Genre 3"
+                app:layout_constraintTop_toBottomOf="@id/tv_date"
+                app:layout_constraintStart_toStartOf="@id/tv_date"
+                app:layout_constraintEnd_toEndOf="@id/tv_date" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                style="@style/SomethingBigTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Lorem ipsum siata amet"
+                app:layout_constraintTop_toBottomOf="@id/tv_genres"
+                app:layout_constraintStart_toStartOf="@id/tv_genres"
+                app:layout_constraintEnd_toEndOf="@id/tv_genres" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -5,8 +5,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.0"
+        classpath "com.android.tools.build:gradle:7.0.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -15,4 +17,25 @@ buildscript {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+//    hiltVersion = '2.36'
+
+    hiltVersion = '2.38.1'
+
+    retrofitVersion = '2.9.0'
+    loggingInterceptorVersion = '4.9.1'
+
+    rxjavaVersion = "2.2.19"
+    rxandroidVersion = "2.1.1"
+    lifecycleVersion = "2.4.0"
+
+    glideVersion = '4.12.0'
+
+    roomVersion = "2.3.0"
+
+    materialVersion = '1.4.0'
+
+    pagingVersion = '3.0.0'
 }

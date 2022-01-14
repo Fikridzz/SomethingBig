@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@id/nav_movie">
+
+    <fragment
+        android:id="@+id/nav_movie"
+        android:name="co.id.fikridzakwan.somethingbig.presentation.movie.MovieFragment"
+        android:label="fragment_movie"
+        tools:layout="@layout/fragment_movie" >
+        <action
+            android:id="@+id/action_nav_movie_to_nav_more_movie"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:destination="@id/nav_more_movie"/>
+        <action
+            android:id="@+id/action_nav_movie_to_nav_search_movie"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:destination="@id/nav_search_movie" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_more_movie"
+        android:name="co.id.fikridzakwan.somethingbig.presentation.more.MoreMovieFragment"
+        android:label="fragment_more_movie"
+        tools:layout="@layout/fragment_more_movie" />
+    <fragment
+        android:id="@+id/nav_search_movie"
+        android:name="co.id.fikridzakwan.somethingbig.presentation.search.SearchFragment"
+        android:label="fragment_search_movie"
+        tools:layout="@layout/fragment_search_movie" />
+</navigation>

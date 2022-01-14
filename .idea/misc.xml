@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable-v24/bg_search_fragment.xml" value="0.23981481481481481" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2574074074074074" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable-v24/ic_previous.xml" value="0.25" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_detail_rounded.xml" value="0.2462962962962963" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_home.xml" value="0.2462962962962963" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_progress.xml" value="0.22685185185185186" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_rounded_image.xml" value="0.2462962962962963" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_search.xml" value="0.2462962962962963" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/bg_search_fragment.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/ic_broken_image.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/ic_forward.xml" value="0.2574074074074074" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2574074074074074" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/ic_refresh.xml" value="0.24351851851851852" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/ic_search.xml" value="0.24351851851851852" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/drawable/ic_tmdb_logo.xml" value="0.24351851851851852" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/font/source_sans_pro.xml" value="0.25" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/font/source_sans_pro_black.xml" value="0.16770833333333332" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/font/source_sans_pro_bold.xml" value="0.16770833333333332" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/activity_detail_movie.xml" value="0.2037037037037037" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/activity_main.xml" value="0.1375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/activity_splash_screen.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/custom_loading.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/fragment_more_movie.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/fragment_movie.xml" value="0.2074074074074074" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/fragment_search_movie.xml" value="0.264" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/item_more.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/item_more_movie.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/item_movie_large.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/item_movie_small.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/layout_load.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/layout_loading.xml" value="0.19722222222222222" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/layout_splash_screen.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/layout_toolbar.xml" value="0.2" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/load_state_footer.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/placeholder_item_large.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/placeholder_item_small.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/placeholder_litem_large.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/menu/menu_bottom_nav.xml" value="0.259375" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
