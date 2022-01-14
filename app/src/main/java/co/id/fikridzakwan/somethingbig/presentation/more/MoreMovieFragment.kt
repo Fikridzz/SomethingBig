@@ -1,19 +1,14 @@
 package co.id.fikridzakwan.somethingbig.presentation.more
 
-import android.os.Bundle
-import android.transition.TransitionInflater
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMoreMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
+import co.id.fikridzakwan.somethingbig.presentation.paging.MoviePagerAdapter
+import co.id.fikridzakwan.somethingbig.presentation.paging.ReposLoadStateAdapter
 import co.id.fikridzakwan.somethingbig.utils.AppConstants
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,8 +21,8 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
 
     private var type: String = ""
 
-    private val moreMoviePager: MoreMoviePagerAdapter by lazy {
-        MoreMoviePagerAdapter(
+    private val moviePager: MoviePagerAdapter by lazy {
+        MoviePagerAdapter(
             onItemClickListener = {
                 DetailMovieActivity.start(requireContext(), it.id)
             }
@@ -67,12 +62,10 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
 
         with(binding.rvMoreMovie) {
             layoutManager = LinearLayoutManager(context)
-            adapter = moreMoviePager
+            adapter = moviePager
                 .withLoadStateHeaderAndFooter(
-                    header = ReposLoadStateAdapter(context = context, retry = {
-                        moreMoviePager.retry() }),
-                    footer = ReposLoadStateAdapter(context = context, retry = {
-                        moreMoviePager.retry() })
+                    header = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() }),
+                    footer = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() })
                 )
         }
     }
@@ -92,7 +85,7 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
                     binding.progressBar.hideLoading()
                     viewModel.getMoreMovie.observe(viewLifecycleOwner, { result ->
                         lifecycleScope.launch {
-                            result.data?.let { it1 -> moreMoviePager.submitData(it1) }
+                            result.data?.let { it1 -> moviePager.submitData(it1) }
                         }
                     })
                 }

@@ -10,7 +10,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MoviePagingSource(
+class MoreMoviePagingSource(
     private val service: MovieApiClient,
     private val type: String
 ) : RxPagingSource<Int, ResultsItem>() {

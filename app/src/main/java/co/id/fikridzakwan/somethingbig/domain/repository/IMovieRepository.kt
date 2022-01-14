@@ -19,5 +19,5 @@ interface IMovieRepository {
 
     fun getMoreMovie(value: String) : Flowable<PagingData<ResultsItem>>
 
-    fun searchMovies(query: String) : Single<List<ResultsItem>>
+    fun searchMovies(query: String) : Flowable<PagingData<ResultsItem>>
 }

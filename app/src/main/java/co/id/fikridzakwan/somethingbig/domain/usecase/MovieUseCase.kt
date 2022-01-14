@@ -18,5 +18,5 @@ interface MovieUseCase {
 
     fun getMoreMovie(value: String) : Flowable<PagingData<MovieInteractor.UiModel>>
 
-    fun searchMovies(query: String) : Single<List<Movie>>
+    fun searchMovies(query: String) : Flowable<PagingData<MovieInteractor.UiModel>>
 }

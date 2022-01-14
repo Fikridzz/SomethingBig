@@ -1,4 +1,4 @@
-package co.id.fikridzakwan.somethingbig.presentation.more
+package co.id.fikridzakwan.somethingbig.presentation.paging
 
 import android.content.Context
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package co.id.fikridzakwan.somethingbig.presentation.more
+package co.id.fikridzakwan.somethingbig.presentation.paging
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.domain.usecase.MovieInteractor
 
-class MoreMoviePagerAdapter(
+class MoviePagerAdapter(
     private val onItemClickListener: (Movie) -> Unit
 ) : PagingDataAdapter<MovieInteractor.UiModel, PagerViewHolder>(UIMODEL_COMPARATOR) {
 

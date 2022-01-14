@@ -46,9 +46,9 @@ class MovieInteractor @Inject constructor(private val repository: IMovieReposito
             }
     }
 
-    override fun searchMovies(query: String): Single<List<Movie>> {
+    override fun searchMovies(query: String): Flowable<PagingData<UiModel>> {
         return repository.searchMovies(query)
-            .map { it.map { it.mapToMovie() } }
+            .map { it.map { UiModel.MovieItem(it.mapToMovie()) } }
     }
 
     sealed class UiModel {
