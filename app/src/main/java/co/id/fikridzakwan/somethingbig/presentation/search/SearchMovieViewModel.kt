@@ -1,7 +1,9 @@
 package co.id.fikridzakwan.somethingbig.presentation.search
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.rxjava2.cachedIn
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.domain.usecase.MovieInteractor
@@ -23,6 +25,7 @@ class SearchMovieViewModel @Inject constructor(private val movieUseCase: MovieUs
         disposable.add(
             movieUseCase.searchMovies(query)
                 .compose(RxUtils.applyFlowableAsync())
+                .cachedIn(viewModelScope)
                 .subscribe({ value ->
                     getResult.value = Resource.Success(value)
                 }, this::onError)
