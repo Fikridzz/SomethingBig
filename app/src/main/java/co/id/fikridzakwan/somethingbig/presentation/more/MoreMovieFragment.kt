@@ -1,39 +1,41 @@
 package co.id.fikridzakwan.somethingbig.presentation.more
 
-import android.os.Bundle
-import android.transition.TransitionInflater
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.id.fikridzakwan.somethingbig.R
-import co.id.fikridzakwan.somethingbig.customview.gone
-import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMoreMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
-import co.id.fikridzakwan.somethingbig.presentation.main.MainActivity
-import co.id.fikridzakwan.somethingbig.presentation.movie.MovieFragment
+import co.id.fikridzakwan.somethingbig.presentation.paging.MoviePagerAdapter
+import co.id.fikridzakwan.somethingbig.presentation.paging.ReposLoadStateAdapter
 import co.id.fikridzakwan.somethingbig.utils.AppConstants
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
 
     private val viewModel: MoreMovieViewModel by viewModels()
 
-    private val moreMovieAdapter: MoreMovieAdapter by lazy {
-        MoreMovieAdapter(
+    private var type: String = ""
+
+    private val moviePager: MoviePagerAdapter by lazy {
+        MoviePagerAdapter(
             onItemClickListener = {
                 DetailMovieActivity.start(requireContext(), it.id)
             }
         )
     }
+
+//    private val moreMovieAdapter: MoreMovieAdapter by lazy {
+//        MoreMovieAdapter(
+//            onItemClickListener = {
+//                DetailMovieActivity.start(requireContext(), it.id)
+//            }
+//        )
+//    }
 
 //    companion object {
 //        fun start(value: String, id: Int) : MovieFragment {
@@ -47,23 +49,29 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
     override fun getViewBinding() = FragmentMoreMovieBinding.inflate(layoutInflater)
 
     override fun initUI() {
-        val inflater = TransitionInflater.from(requireContext())
-        exitTransition = inflater.inflateTransition(R.transition.slide_left)
-        enterTransition = inflater.inflateTransition(R.transition.slide_right)
-        binding.toolbar.setTitle("More movie")
         binding.toolbar.backPressed()
+        if (arguments != null) {
+            type = arguments?.getString(AppConstants.EXTRA_TYPE)!!
+        }
+        var titleToolbar = ""
+        when (type) {
+            "now_playing" -> titleToolbar = "Now playing"
+            "upcoming" -> titleToolbar = "Upcoming"
+        }
+        binding.toolbar.setTitle(titleToolbar)
 
         with(binding.rvMoreMovie) {
             layoutManager = LinearLayoutManager(context)
-            adapter = moreMovieAdapter
+            adapter = moviePager
+                .withLoadStateHeaderAndFooter(
+                    header = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() }),
+                    footer = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() })
+                )
         }
     }
 
     override fun initProcess() {
-        if (arguments != null) {
-            val value = arguments?.getString(AppConstants.EXTRA_TYPE)
-            value?.let { viewModel.getMoreMovie(it) }
-        }
+        viewModel.getMoreMovie(type)
     }
 
     override fun initAction() {
@@ -72,14 +80,18 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
     override fun initObservers() {
         viewModel.getMoreMovie.observe(viewLifecycleOwner, {
             when (it) {
-                is Resource.Loading -> binding.progressBar.visible()
+                is Resource.Loading -> binding.progressBar.showLoading()
                 is Resource.Success -> {
-                    binding.progressBar.gone()
-                    moreMovieAdapter.setData(it.data)
+                    binding.progressBar.hideLoading()
+                    viewModel.getMoreMovie.observe(viewLifecycleOwner, { result ->
+                        lifecycleScope.launch {
+                            result.data?.let { it1 -> moviePager.submitData(it1) }
+                        }
+                    })
                 }
                 is Resource.Error -> {
-                    binding.progressBar.gone()
-                    showToast(it.message.toString())
+                    binding.progressBar.hideLoading()
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             }
         })

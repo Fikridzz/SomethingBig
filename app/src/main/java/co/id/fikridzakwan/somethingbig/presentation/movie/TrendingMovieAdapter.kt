@@ -23,7 +23,7 @@ class TrendingMovieAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
-        val view = ItemMovieLargeBinding.inflate(LayoutInflater.from(parent.context))
+        val view = ItemMovieLargeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PopularViewHolder(view)
     }
 

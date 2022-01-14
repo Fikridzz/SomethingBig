@@ -21,7 +21,7 @@ class UpcomingMovieAdapter(private val onItemClickListener: (Movie) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingViewHolder {
-        val view = ItemMovieSmallBinding.inflate(LayoutInflater.from(parent.context))
+        val view = ItemMovieSmallBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UpcomingViewHolder(view)
     }
 

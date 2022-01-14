@@ -1,36 +1,26 @@
 package co.id.fikridzakwan.somethingbig.presentation.search
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentSearchMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
-import co.id.fikridzakwan.somethingbig.presentation.main.MainActivity
-import co.id.fikridzakwan.somethingbig.presentation.more.MoreMovieAdapter
+import co.id.fikridzakwan.somethingbig.presentation.paging.MoviePagerAdapter
+import co.id.fikridzakwan.somethingbig.presentation.paging.ReposLoadStateAdapter
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
-import com.jakewharton.rxbinding2.widget.RxSearchView
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
 
-    private val moreMovieAdapter: MoreMovieAdapter by lazy {
-        MoreMovieAdapter(
+    private val moviePager: MoviePagerAdapter by lazy {
+        MoviePagerAdapter(
             onItemClickListener = {
                 DetailMovieActivity.start(requireContext(), it.id)
             }
@@ -43,12 +33,16 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
 
     override fun initUI() {
         binding.apply {
-            with(rvSearch) {
-                adapter = moreMovieAdapter
-                layoutManager = LinearLayoutManager(context)
-            }
-
             toolbar.setTitle("Search")
+
+            with(rvSearch) {
+                layoutManager = LinearLayoutManager(context)
+                adapter = moviePager
+                    .withLoadStateHeaderAndFooter(
+                        header = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() }),
+                        footer = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() })
+                    )
+            }
         }
     }
 
@@ -79,7 +73,11 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
                     is Resource.Loading -> binding.progressLinear.visible()
                     is Resource.Success -> {
                         binding.progressLinear.gone()
-                        moreMovieAdapter.setData(value.data)
+                        viewModel.getResult.observe(viewLifecycleOwner, { result ->
+                            lifecycleScope.launch {
+                                result.data?.let { v -> moviePager.submitData(v) }
+                            }
+                        })
                     }
                     is Resource.Error -> {
                         binding.progressLinear.gone()
