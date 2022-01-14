@@ -69,7 +69,7 @@ object DataMapper {
         } else {
             val input = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(this)
             val date = Date(input.time)
-            val convert = SimpleDateFormat("MMM, dd yyyy", Locale.getDefault())
+            val convert = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
             convert.format(date)
         }
     }

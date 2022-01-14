@@ -1,15 +1,23 @@
 package co.id.fikridzakwan.somethingbig.data
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import co.id.fikridzakwan.somethingbig.BuildConfig
 import co.id.fikridzakwan.somethingbig.data.source.network.MovieApi
+import co.id.fikridzakwan.somethingbig.data.source.paging.MoviePagingSource
 import co.id.fikridzakwan.somethingbig.data.source.response.DetailResponse
 import co.id.fikridzakwan.somethingbig.data.source.response.MovieResponse
 import co.id.fikridzakwan.somethingbig.data.source.response.ResultsItem
 import co.id.fikridzakwan.somethingbig.domain.repository.IMovieRepository
+import io.reactivex.Flowable
 import io.reactivex.Single
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 import javax.inject.Singleton
+import androidx.paging.rxjava2.flowable as flowable
 
+@ExperimentalCoroutinesApi
 class MovieRepository @Inject constructor(private val movieApi: MovieApi) : IMovieRepository {
 
     override fun getTrendingMovies(): Single<List<ResultsItem>> {
@@ -36,9 +44,16 @@ class MovieRepository @Inject constructor(private val movieApi: MovieApi) : IMov
             .map { it.body() }
     }
 
-    override fun getMoreMovie(value: String): Single<List<ResultsItem>> {
-        return movieApi.getMoreMovie(value, BuildConfig.API_KEY, 1)
-            .map { it.body()?.results }
+    override fun getMoreMovie(value: String): Flowable<PagingData<ResultsItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = true,
+                maxSize = 30,
+                prefetchDistance = 5,
+                initialLoadSize = 40),
+            pagingSourceFactory = { MoviePagingSource(movieApi, value) }
+        ).flowable
     }
 
     override fun searchMovies(query: String): Single<List<ResultsItem>> {

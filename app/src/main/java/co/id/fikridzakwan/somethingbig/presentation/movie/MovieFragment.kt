@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.id.fikridzakwan.somethingbig.BuildConfig
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import com.bumptech.glide.Glide

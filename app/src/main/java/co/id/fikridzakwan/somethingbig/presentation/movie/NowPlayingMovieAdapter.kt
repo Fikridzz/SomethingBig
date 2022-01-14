@@ -21,7 +21,7 @@ class NowPlayingMovieAdapter(private val onItemClickListener: (Movie) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NowPlayingViewHolder {
-        val view = ItemMovieSmallBinding.inflate(LayoutInflater.from(parent.context))
+        val view = ItemMovieSmallBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NowPlayingViewHolder(view)
     }
 
