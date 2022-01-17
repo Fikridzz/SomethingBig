@@ -1,35 +1,24 @@
 package co.id.fikridzakwan.somethingbig.presentation.movie
 
-import android.content.Intent
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import co.id.fikridzakwan.somethingbig.data.Resource
-import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
-import com.bumptech.glide.Glide
-import dagger.hilt.android.AndroidEntryPoint
-import android.graphics.ColorMatrixColorFilter
 import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.transition.TransitionInflater
-import android.transition.Visibility
-import android.util.Log
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.visible
+import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMovieBinding
-import co.id.fikridzakwan.somethingbig.presentation.main.MainActivity
-import co.id.fikridzakwan.somethingbig.presentation.more.MoreMovieFragment
+import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import co.id.fikridzakwan.somethingbig.utils.AppConstants
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieFragment : BaseFragment<FragmentMovieBinding>() {
@@ -113,6 +102,20 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                     is Resource.Success -> {
                         binding.shimmerLayout1.gone()
                         trendingMovieAdapter.setData(it.data)
+
+                        // Random pick image backdrop from api
+                        val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
+                        Glide.with(requireContext())
+                            .load(backdrop?.backdropPath)
+                            .transition(DrawableTransitionOptions.withCrossFade(1000))
+                            .into(binding.imgBackdrop)
+
+                        // Make image view black and white
+                        val matrix = ColorMatrix()
+                        matrix.setSaturation(0f)
+
+                        val filter = ColorMatrixColorFilter(matrix)
+                        binding.imgBackdrop.colorFilter = filter
                     }
                     is Resource.Error -> {
                         binding.shimmerLayout1.gone()
