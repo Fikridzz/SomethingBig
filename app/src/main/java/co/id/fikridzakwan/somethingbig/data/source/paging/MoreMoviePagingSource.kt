@@ -13,9 +13,9 @@ import retrofit2.HttpException
 import java.io.IOException
 
 /**
- * There is tw0 different way to use paging in rx that i found
- * 1: Using function as LoadResult
- * 2: Map LoadResult in loadSingle
+ * There is two different way to use paging in rx that i found
+ * 1: Map LoadResult in loadSingle Reference Android Developer
+ * 2: Using function as LoadResult Reference Medium
  */
 
 class MoreMoviePagingSource(
@@ -33,8 +33,12 @@ class MoreMoviePagingSource(
             .map { toLoadResult(it, position) }
             .onErrorReturn { e ->
                 when (e) {
+                    // Retrofit calls that return the body type throw either IOException for
                     is IOException -> LoadResult.Error(e)
+                    // network failures, or HttpException for any non-2xx HTTP status codes.
                     is HttpException -> LoadResult.Error(e)
+                    // This code reports all errors to the UI, but you can inspect/wrap the
+                    // exceptions to provide more context.
                     else -> throw e
                 }
             }
