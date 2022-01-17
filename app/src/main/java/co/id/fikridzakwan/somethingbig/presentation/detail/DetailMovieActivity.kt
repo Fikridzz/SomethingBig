@@ -7,10 +7,13 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import co.id.fikridzakwan.somethingbig.BuildConfig
 import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.customview.LoadingCustomView
+import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.loadImage
+import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.ActivityDetailMovieBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Detail
@@ -53,21 +56,21 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
     }
 
     override fun initObservers() {
-        viewModel.getDetail.observe(this, {
-            if (it != null) {
-                when(it) {
-                    is Resource.Loading -> binding.progressBar.showLoading()
+        lifecycleScope.launchWhenStarted {
+            viewModel.getDetail.collect {
+                when (it) {
+                    is Resource.Loading -> { binding.progressBar.visible() }
                     is Resource.Success -> {
-                        populateDetail(it.data!!)
-                        binding.progressBar.hideLoading()
+                        binding.progressBar.gone()
+                        it.data?.let { v -> populateDetail(v) }
                     }
                     is Resource.Error -> {
-                        binding.progressBar.hideLoading()
-                        Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                        binding.progressBar.gone()
+                        showToast(it.message ?: "")
                     }
                 }
             }
-        })
+        }
     }
 
     private fun populateDetail(data: Detail) {

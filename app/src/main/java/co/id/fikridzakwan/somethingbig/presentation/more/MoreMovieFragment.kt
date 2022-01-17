@@ -4,6 +4,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import co.id.fikridzakwan.somethingbig.customview.gone
+import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMoreMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
@@ -78,22 +80,22 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
     }
 
     override fun initObservers() {
-        viewModel.getMoreMovie.observe(viewLifecycleOwner, {
-            when (it) {
-                is Resource.Loading -> binding.progressBar.showLoading()
-                is Resource.Success -> {
-                    binding.progressBar.hideLoading()
-                    viewModel.getMoreMovie.observe(viewLifecycleOwner, { result ->
+        lifecycleScope.launchWhenStarted {
+            viewModel.getMoreMovie.collect {
+                when (it) {
+                    is Resource.Loading -> { binding.progressBar.visible() }
+                    is Resource.Success -> {
+                        binding.progressBar.gone()
                         lifecycleScope.launch {
-                            result.data?.let { it1 -> moviePager.submitData(it1) }
+                            it.data?.let { v -> moviePager.submitData(v) }
                         }
-                    })
-                }
-                is Resource.Error -> {
-                    binding.progressBar.hideLoading()
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    }
+                    is Resource.Error -> {
+                        binding.progressBar.gone()
+                        showToast(it.message ?: "")
+                    }
                 }
             }
-        })
+        }
     }
 }

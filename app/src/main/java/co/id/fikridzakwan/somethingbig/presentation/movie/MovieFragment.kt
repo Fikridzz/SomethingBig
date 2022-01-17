@@ -19,8 +19,11 @@ import android.transition.TransitionInflater
 import android.transition.Visibility
 import android.util.Log
 import androidx.core.os.bundleOf
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.somethingbig.customview.gone
+import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.main.MainActivity
 import co.id.fikridzakwan.somethingbig.presentation.more.MoreMovieFragment
@@ -63,10 +66,25 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         val inflater = TransitionInflater.from(requireContext())
         exitTransition = inflater.inflateTransition(R.transition.slide_left)
         enterTransition = inflater.inflateTransition(R.transition.slide_right)
+
+        with(binding.rvPopular) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = trendingMovieAdapter
+        }
+
+        with(binding.rvNowPlaying) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = nowPlayingMovieAdapter
+        }
+
+        with(binding.rvUpcoming) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = upcomingMovieAdapter
+        }
     }
 
     override fun initProcess() {
-        viewModel.getPopularMovies()
+        viewModel.getTrendingMovie()
         viewModel.getNowPlayingMovies()
         viewModel.getUpcomingMovies()
     }
@@ -88,82 +106,52 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     override fun initObservers() {
-        viewModel.getTrending.observe(viewLifecycleOwner, {
-            when(it) {
-                is Resource.Loading -> {
-                    binding.shimmerLayout1.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding.shimmerLayout1.visibility = View.GONE
-                    trendingMovieAdapter.setData(it.data)
-//                        listType.add(1)
-//                        movieAdapter.setData(it.data)
-
-                    // Random pick image backdrop from api
-                    val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
-                    Glide.with(requireContext())
-                        .load(backdrop?.backdropPath)
-                        .transition(DrawableTransitionOptions.withCrossFade(1000))
-                        .into(binding.imgBackdrop)
-
-                    // Make image view black and white
-                    val matrix = ColorMatrix()
-                    matrix.setSaturation(0f)
-
-                    val filter = ColorMatrixColorFilter(matrix)
-                    binding.imgBackdrop.colorFilter = filter
-                }
-                is Resource.Error -> {
-                    binding.shimmerLayout1.visibility = View.GONE
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+        lifecycleScope.launchWhenStarted {
+            viewModel.getTrending.collect {
+                when (it) {
+                    is Resource.Loading -> { binding.shimmerLayout1.visible() }
+                    is Resource.Success -> {
+                        binding.shimmerLayout1.gone()
+                        trendingMovieAdapter.setData(it.data)
+                    }
+                    is Resource.Error -> {
+                        binding.shimmerLayout1.gone()
+                        showToast(it.message ?: "")
+                    }
                 }
             }
-        })
-        with(binding.rvPopular) {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = trendingMovieAdapter
         }
 
-        viewModel.getNowPlaying.observe(viewLifecycleOwner, {
-            when(it) {
-                is Resource.Loading -> binding.shimmerLayout2.visibility = View.VISIBLE
-                is Resource.Success -> {
-                    binding.shimmerLayout2.visibility = View.GONE
-                    nowPlayingMovieAdapter.setData(it.data)
-//                        listType.add(2)
-//                        movieAdapter.setData(it.data)
-                }
-                is Resource.Error -> {
-                    binding.shimmerLayout2.visibility = View.GONE
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+        lifecycleScope.launchWhenStarted {
+            viewModel.getNowPlaying.collect {
+                when (it) {
+                    is Resource.Loading -> { binding.shimmerLayout2.visible() }
+                    is Resource.Success -> {
+                        binding.shimmerLayout2.gone()
+                        nowPlayingMovieAdapter.setData(it.data)
+                    }
+                    is Resource.Error -> {
+                        binding.shimmerLayout2.gone()
+                        showToast(it.message ?: "")
+                    }
                 }
             }
-        })
-        with(binding.rvNowPlaying) {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = nowPlayingMovieAdapter
         }
 
-        viewModel.getUpcoming.observe(viewLifecycleOwner, {
-            when(it) {
-                is Resource.Loading -> {
-                    binding.shimmerLayout3.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding.shimmerLayout3.visibility = View.GONE
-                    upcomingMovieAdapter.setData(it.data)
-//                        listType.add(3)
-//                        movieAdapter.setData(it.data)
-                }
-                is Resource.Error -> {
-                    binding.shimmerLayout3.visibility = View.GONE
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+        lifecycleScope.launchWhenStarted {
+            viewModel.getUpcoming.collect {
+                when (it) {
+                    is Resource.Loading -> { binding.shimmerLayout3.visible() }
+                    is Resource.Success -> {
+                        binding.shimmerLayout3.gone()
+                        upcomingMovieAdapter.setData(it.data)
+                    }
+                    is Resource.Error -> {
+                        binding.shimmerLayout3.gone()
+                        showToast(it.message ?: "")
+                    }
                 }
             }
-        })
-        with(binding.rvUpcoming) {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = upcomingMovieAdapter
         }
     }
 }

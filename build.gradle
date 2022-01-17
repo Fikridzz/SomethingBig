@@ -38,4 +38,9 @@ ext {
     materialVersion = '1.4.0'
 
     pagingVersion = '3.0.0'
+
+    couroutineVersion = '1.6.0'
+
+    koinVersion = "2.1.6"
+
 }

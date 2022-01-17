@@ -34,6 +34,7 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
     override fun initUI() {
         binding.apply {
             toolbar.setTitle("Search")
+            binding.progressLinear.gone()
 
             with(rvSearch) {
                 layoutManager = LinearLayoutManager(context)
@@ -67,24 +68,22 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
     }
 
     override fun initObservers() {
-        viewModel.getResult.observe(viewLifecycleOwner, { value ->
-            if (value != null) {
-                when (value) {
-                    is Resource.Loading -> binding.progressLinear.visible()
+        lifecycleScope.launchWhenStarted {
+            viewModel.getResult.collect {
+                when (it) {
+                    is Resource.Loading -> { binding.progressLinear.visible() }
                     is Resource.Success -> {
                         binding.progressLinear.gone()
-                        viewModel.getResult.observe(viewLifecycleOwner, { result ->
-                            lifecycleScope.launch {
-                                result.data?.let { v -> moviePager.submitData(v) }
-                            }
-                        })
+                        lifecycleScope.launch {
+                            it.data?.let { v -> moviePager.submitData(v) }
+                        }
                     }
                     is Resource.Error -> {
                         binding.progressLinear.gone()
-                        showToast(value.message.toString())
+                        showToast(it.message ?: "")
                     }
                 }
             }
-        })
+        }
     }
 }

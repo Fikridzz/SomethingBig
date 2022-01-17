@@ -11,40 +11,39 @@ import retrofit2.http.Query
 interface MovieApiClient {
 
     @GET("trending/movie/week")
-    fun getTrendingMovies(
+    suspend fun getTrendingMovies(
         @Query("api_key") apiKey: String,
         @Query("page") page: Int
-    ): Single<Response<MovieResponse>>
+    ): Response<MovieResponse>
 
     @GET("movie/now_playing")
-    fun getNowPlayingMovies(
+    suspend fun getNowPlayingMovies(
         @Query("api_key") apiKey: String,
         @Query("page") page : Int
-    ): Single<Response<MovieResponse>>
+    ): Response<MovieResponse>
 
     @GET("movie/upcoming")
-    fun getUpcomingMovies(
+    suspend fun getUpcomingMovies(
         @Query("api_key") apiKey: String,
         @Query("page") page: Int
-    ): Single<Response<MovieResponse>>
-
+    ): Response<MovieResponse>
     @GET("movie/{value}")
-    fun getMoreMovie(
+    suspend fun getMoreMovie(
         @Path("value") value: String,
         @Query("api_key") apiKey: String,
         @Query("page") page: Int
-    ): Single<Response<MovieResponse>>
+    ): Response<MovieResponse>
 
     @GET("movie/{id}")
-    fun getDetailMovie(
+    suspend fun getDetailMovie(
         @Path("id") id: Int,
         @Query("api_key") apiKey: String
-    ): Single<Response<DetailResponse>>
+    ): Response<DetailResponse>
 
     @GET("search/movie")
-    fun searchMovies(
+    suspend fun searchMovies(
         @Query("api_key") apiKey: String,
         @Query("query") query: String,
         @Query("page") page: Int
-    ): Single<Response<MovieResponse>>
+    ): Response<MovieResponse>
 }

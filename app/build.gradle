@@ -76,6 +76,16 @@ dependencies {
     // RxBinding
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
 
+    // Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$couroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$couroutineVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+
+    // Koin
+    implementation "org.koin:koin-core:$koinVersion"
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-android-viewmodel:$koinVersion"
+
     // Room
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"

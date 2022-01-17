@@ -1,61 +1,60 @@
 package co.id.fikridzakwan.somethingbig.presentation.movie
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.domain.usecase.MovieUseCase
 import co.id.fikridzakwan.somethingbig.utils.BaseViewModel
 import co.id.fikridzakwan.somethingbig.utils.RxUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : BaseViewModel() {
+class MovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
 
-    val getTrending = MutableLiveData<Resource<List<Movie>>>()
-    val getNowPlaying = MutableLiveData<Resource<List<Movie>>>()
-    val getUpcoming = MutableLiveData<Resource<List<Movie>>>()
+    val getTrending = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
+    val getNowPlaying = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
+    val getUpcoming = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
 
-    fun getPopularMovies() {
-        getTrending.value = Resource.Loading()
+    fun getTrendingMovie() {
+        viewModelScope.launch {
+            getTrending.value = Resource.Loading()
 
-        disposable.add(
             movieUseCase.getTrendingMovies()
-                .compose(RxUtils.applySingleAsync())
-                .subscribe({ value ->
-                    getTrending.value = Resource.Success(value)
-                }, this::onError)
-        )
+                .catch { getTrending.value = Resource.Error(it.localizedMessage ?: "") }
+                .collect {
+                    getTrending.value = Resource.Success(it)
+                }
+        }
     }
 
     fun getNowPlayingMovies() {
-        getNowPlaying.value = Resource.Loading()
+        viewModelScope.launch {
+            getNowPlaying.value = Resource.Loading()
 
-        disposable.add(
             movieUseCase.getNowPlayingMovies()
-                .compose(RxUtils.applySingleAsync())
-                .subscribe({ value ->
-                    getNowPlaying.value = Resource.Success(value)
-                }, this::onError)
-        )
+                .catch { getNowPlaying.value = Resource.Error(it.localizedMessage ?: "") }
+                .collect {
+                    getNowPlaying.value = Resource.Success(it)
+                }
+        }
     }
 
     fun getUpcomingMovies() {
-        getUpcoming.value = Resource.Loading()
+        viewModelScope.launch {
+            getUpcoming.value = Resource.Loading()
 
-        disposable.add(
             movieUseCase.getUpcomingMovies()
-                .compose(RxUtils.applySingleAsync())
-                .subscribe({ value ->
-                    getUpcoming.value = Resource.Success(value)
-                }, this::onError)
-        )
-    }
-
-    override fun onError(error: Throwable) {
-        getTrending.value = Resource.Error(error.localizedMessage!!)
-        getNowPlaying.value = Resource.Error(error.localizedMessage!!)
-        getUpcoming.value = Resource.Error(error.localizedMessage!!)
+                .catch { getUpcoming.value = Resource.Error(it.localizedMessage ?: "") }
+                .collect {
+                    getUpcoming.value = Resource.Success(it)
+                }
+        }
     }
 }
