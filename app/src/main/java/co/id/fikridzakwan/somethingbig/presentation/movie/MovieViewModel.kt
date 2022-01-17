@@ -17,7 +17,7 @@ class MovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase)
     val getNowPlaying = MutableLiveData<Resource<List<Movie>>>()
     val getUpcoming = MutableLiveData<Resource<List<Movie>>>()
 
-    fun getPopularMovies() {
+    fun getTrendeingMovie() {
         getTrending.value = Resource.Loading()
 
         disposable.add(

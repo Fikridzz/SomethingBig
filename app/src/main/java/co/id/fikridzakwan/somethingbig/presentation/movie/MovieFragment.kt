@@ -66,7 +66,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     }
 
     override fun initProcess() {
-        viewModel.getPopularMovies()
+        viewModel.getTrendeingMovie()
         viewModel.getNowPlayingMovies()
         viewModel.getUpcomingMovies()
     }

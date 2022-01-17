@@ -83,12 +83,10 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
                 is Resource.Loading -> binding.progressBar.showLoading()
                 is Resource.Success -> {
                     binding.progressBar.hideLoading()
-                    viewModel.getMoreMovie.observe(viewLifecycleOwner, { result ->
                         lifecycleScope.launch {
-                            result.data?.let { it1 -> moviePager.submitData(it1) }
+                            it.data?.let { v -> moviePager.submitData(v) }
                         }
-                    })
-                }
+                    }
                 is Resource.Error -> {
                     binding.progressBar.hideLoading()
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
