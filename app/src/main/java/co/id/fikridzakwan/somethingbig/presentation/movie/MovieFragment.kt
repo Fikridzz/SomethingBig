@@ -2,7 +2,9 @@ package co.id.fikridzakwan.somethingbig.presentation.movie
 
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
+import android.os.Bundle
 import android.transition.TransitionInflater
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +18,8 @@ import co.id.fikridzakwan.somethingbig.databinding.FragmentMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import co.id.fikridzakwan.somethingbig.utils.AppConstants
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
+import co.id.fikridzakwan.somethingbig.utils.makeStatusBarTransparent
+import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,11 +56,12 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     override fun getViewBinding() = FragmentMovieBinding.inflate(layoutInflater)
 
     override fun initUI() {
+        activity?.makeStatusBarTransparent()
         val inflater = TransitionInflater.from(requireContext())
         exitTransition = inflater.inflateTransition(R.transition.slide_left)
         enterTransition = inflater.inflateTransition(R.transition.slide_right)
 
-        with(binding.rvPopular) {
+        with(binding.rvTrending) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = trendingMovieAdapter
         }
@@ -98,8 +103,11 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.getTrending.collect {
                 when (it) {
-                    is Resource.Loading -> { binding.shimmerLayout1.visible() }
+                    is Resource.Loading -> {
+                        binding.shimmerLayout1.visible()
+                    }
                     is Resource.Success -> {
+                        binding.rvTrending.visible()
                         binding.shimmerLayout1.gone()
                         trendingMovieAdapter.setData(it.data)
 
@@ -130,6 +138,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                 when (it) {
                     is Resource.Loading -> { binding.shimmerLayout2.visible() }
                     is Resource.Success -> {
+                        binding.rvNowPlaying.visible()
                         binding.shimmerLayout2.gone()
                         nowPlayingMovieAdapter.setData(it.data)
                     }
@@ -146,6 +155,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                 when (it) {
                     is Resource.Loading -> { binding.shimmerLayout3.visible() }
                     is Resource.Success -> {
+                        binding.rvUpcoming.visible()
                         binding.shimmerLayout3.gone()
                         upcomingMovieAdapter.setData(it.data)
                     }
@@ -156,5 +166,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.resetStatusBarColor()
     }
 }

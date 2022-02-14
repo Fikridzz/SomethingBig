@@ -19,6 +19,8 @@ import co.id.fikridzakwan.somethingbig.databinding.ActivityDetailMovieBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Detail
 import co.id.fikridzakwan.somethingbig.utils.AppConstants.EXTRA_ID
 import co.id.fikridzakwan.somethingbig.utils.BaseActivity
+import co.id.fikridzakwan.somethingbig.utils.makeStatusBarTransparent
+import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +42,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
     override fun getViewBinding() = ActivityDetailMovieBinding.inflate(layoutInflater)
 
     override fun initUI() {
+        this.resetStatusBarColor()
     }
 
     override fun initAction() {
@@ -75,7 +78,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
 
     private fun populateDetail(data: Detail) {
         binding.apply {
-            imgBackdrop.loadImage(data.posterPath, this@DetailMovieActivity)
+            imgBackdrop.loadImage(data.backdropPath, this@DetailMovieActivity)
             imgPoster.loadImage(data.posterPath, this@DetailMovieActivity)
             imgPoster.clipToOutline = true
             tvTitle.text = data.title

@@ -7,6 +7,6 @@
         android:topLeftRadius="30dp"/>
 
     <solid
-        android:color="@color/white" />
+        android:color="?android:attr/colorBackground" />
 
 </shape>

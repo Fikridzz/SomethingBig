@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".presentation.movie.MovieFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +41,9 @@
             android:id="@+id/text_welcome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/source_sans_pro_bold"
             android:text="Welcome"
             android:textColor="@color/white"
@@ -79,7 +80,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_search" />
+                android:src="@drawable/ic_search"
+                app:tint="?attr/colorControlNormal"/>
 
         </LinearLayout>
 
@@ -104,22 +106,14 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/btn_trending"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:src="@drawable/ic_forward"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                app:tint="@color/white" />-->
-
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_popular"
+            android:id="@+id/rv_trending"
             android:layout_width="0dp"
             android:layout_height="280dp"
             android:layout_marginTop="8dp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/header_trending"
             app:layout_constraintTop_toBottomOf="@id/header_trending"
@@ -129,9 +123,10 @@
             android:id="@+id/shimmer_layout1"
             android:layout_width="0dp"
             android:layout_height="280dp"
-            app:layout_constraintEnd_toEndOf="@id/rv_popular"
-            app:layout_constraintStart_toStartOf="@id/rv_popular"
-            app:layout_constraintTop_toTopOf="@id/rv_popular"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/header_trending"
+            app:layout_constraintTop_toBottomOf="@id/header_trending"
             app:shimmer_auto_start="true">
 
             <LinearLayout
@@ -156,9 +151,9 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@id/rv_popular"
-            app:layout_constraintStart_toStartOf="@id/rv_popular"
-            app:layout_constraintTop_toBottomOf="@id/rv_popular">
+            app:layout_constraintEnd_toEndOf="@id/rv_trending"
+            app:layout_constraintStart_toStartOf="@id/rv_trending"
+            app:layout_constraintTop_toBottomOf="@id/rv_trending">
 
             <TextView
                 android:id="@+id/text_now_playing"
@@ -167,7 +162,7 @@
                 android:layout_weight="10"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:text="Now playing"
-                android:textColor="@color/black"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="18sp" />
 
             <ImageButton
@@ -177,7 +172,7 @@
                 android:layout_weight="1"
                 android:src="@drawable/ic_forward"
                 android:background="@android:color/transparent"
-                app:tint="@color/black" />
+                app:tint="?android:attr/textColorPrimary" />
 
         </LinearLayout>
 
@@ -186,6 +181,7 @@
             android:layout_width="0dp"
             android:layout_height="220dp"
             android:layout_marginTop="8dp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@id/header_now_playing"
             app:layout_constraintStart_toStartOf="@id/header_now_playing"
             app:layout_constraintTop_toBottomOf="@id/header_now_playing"
@@ -232,7 +228,7 @@
                 android:layout_weight="10"
                 android:fontFamily="@font/source_sans_pro_semibold"
                 android:text="Upcoming"
-                android:textColor="@color/black"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="18sp" />
 
             <ImageButton
@@ -242,7 +238,7 @@
                 android:layout_weight="1"
                 android:src="@drawable/ic_forward"
                 android:background="@android:color/transparent"
-                app:tint="@color/black" />
+                app:tint="?android:attr/textColorPrimary" />
 
         </LinearLayout>
 
@@ -252,7 +248,7 @@
             android:layout_height="220dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@id/header_upcoming"
             app:layout_constraintStart_toStartOf="@id/header_upcoming"
             app:layout_constraintTop_toBottomOf="@id/header_upcoming"

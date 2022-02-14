@@ -1,9 +1,11 @@
 package co.id.fikridzakwan.somethingbig.presentation.search
 
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.visible
@@ -13,6 +15,7 @@ import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import co.id.fikridzakwan.somethingbig.presentation.paging.MoviePagerAdapter
 import co.id.fikridzakwan.somethingbig.presentation.paging.ReposLoadStateAdapter
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
+import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,6 +38,7 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
         binding.apply {
             toolbar.setTitle("Search")
             binding.progressLinear.gone()
+            binding.srcMovie.onWindowFocusChanged(true)
 
             with(rvSearch) {
                 layoutManager = LinearLayoutManager(context)
@@ -43,6 +47,14 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
                         header = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() }),
                         footer = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() })
                     )
+                moviePager.addLoadStateListener { loadState ->
+                    val isListEmpty = loadState.refresh is LoadState.NotLoading && moviePager.itemCount == 0
+                    binding.groupError.isVisible = isListEmpty
+                    binding.progressLinear.isVisible = !isListEmpty
+                    binding.rvSearch.isVisible = loadState.source.refresh is LoadState.NotLoading
+                    binding.progressLinear.isVisible = loadState.source.refresh is LoadState.Loading
+                    binding.groupError.isVisible = loadState.source.refresh is LoadState.Error
+                }
             }
         }
     }
@@ -71,7 +83,7 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.getResult.collect {
                 when (it) {
-                    is Resource.Loading -> { binding.progressLinear.visible() }
+                    is Resource.Loading -> {  }
                     is Resource.Success -> {
                         binding.progressLinear.gone()
                         lifecycleScope.launch {
@@ -85,5 +97,10 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.resetStatusBarColor()
     }
 }

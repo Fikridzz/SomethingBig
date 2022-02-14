@@ -35,7 +35,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding = true
+        viewBinding true
     }
     dynamicFeatures = [':dynamicfeature']
 }
@@ -98,6 +98,9 @@ dependencies {
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
+    // Lottie
     implementation "com.airbnb.android:lottie:4.2.1"
 
+    // Recyclerview selection
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
 }
