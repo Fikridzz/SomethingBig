@@ -20,7 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MoreMovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
 
-//    val getMoreMovie = MutableLiveData<Resource<PagingData<MovieInteractor.UiModel>>>()
     val getMoreMovie = MutableStateFlow<Resource<PagingData<MovieInteractor.UiModel>>>(Resource.Loading())
 
     fun getMoreMovie(value: String) {

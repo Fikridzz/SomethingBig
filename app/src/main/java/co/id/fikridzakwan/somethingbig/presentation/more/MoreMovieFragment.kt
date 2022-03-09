@@ -110,8 +110,8 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
                     is Resource.Loading -> { binding.progressBar.visible() }
                     is Resource.Success -> {
                         binding.progressBar.gone()
-                        lifecycleScope.launch {
-                            it.data?.let { v -> moviePager.submitData(v) }
+                        if (it.data != null) {
+                            moviePager.submitData(it.data)
                         }
                     }
                     is Resource.Error -> {

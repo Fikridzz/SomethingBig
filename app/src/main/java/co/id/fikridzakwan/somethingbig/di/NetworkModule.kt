@@ -1,10 +1,13 @@
 package co.id.fikridzakwan.somethingbig.di
 
+import android.content.Context
 import co.id.fikridzakwan.somethingbig.BuildConfig
 import co.id.fikridzakwan.somethingbig.data.source.network.MovieApiClient
+import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,8 +21,9 @@ import javax.inject.Singleton
 class NetworkModule {
 
     @Provides
-    fun provideOkhttpClient(): OkHttpClient {
+    fun provideOkhttpClient(@ApplicationContext context: Context): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(ChuckInterceptor(context))
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
     }

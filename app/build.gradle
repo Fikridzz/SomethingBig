@@ -57,7 +57,7 @@ dependencies {
 
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
-    implementation "androidx.paging:paging-rxjava2:$pagingVersion"
+    implementation "androidx.paging:paging-rxjava2-ktx:$pagingVersion"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -103,4 +103,8 @@ dependencies {
 
     // Recyclerview selection
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
+
+    // Chuck
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 }
