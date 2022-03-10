@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_backdrop"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,7 @@
     <View
         android:id="@+id/view_overlay"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="match_parent"
         android:background="#80000000"
         app:layout_constraintEnd_toEndOf="@id/img_backdrop"
         app:layout_constraintStart_toStartOf="@id/img_backdrop"
@@ -50,31 +50,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_rounded_detail"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline" />
+        app:layout_constraintTop_toBottomOf="@id/tv_runtime" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_poster"
-        android:layout_width="150dp"
-        android:layout_height="220dp"
+        android:layout_width="200dp"
+        android:layout_height="280dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/bg_rounded_image"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"
-        app:layout_constraintBottom_toTopOf="@id/guideline3"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/tv_title"
         style="@style/SomethingBigTextViewTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
         android:text="Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/img_poster"
-        app:layout_constraintTop_toTopOf="@id/view1" />
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/tv_genres"
+        app:layout_constraintEnd_toEndOf="@id/img_poster"
+        app:layout_constraintStart_toStartOf="@id/img_poster"
+        app:layout_constraintTop_toBottomOf="@id/img_poster" />
 
     <TextView
         android:id="@+id/tv_genres"
@@ -82,6 +88,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Movie, Horor, Sci-fi"
+        app:layout_constraintBottom_toTopOf="@id/image_calendar"
         app:layout_constraintEnd_toEndOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="@id/tv_title"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -92,7 +99,8 @@
         android:layout_height="18dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_calendar"
-        android:tint="?attr/colorControlNormal"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/image_time"
         app:layout_constraintStart_toStartOf="@id/tv_genres"
         app:layout_constraintTop_toBottomOf="@id/tv_genres" />
 
@@ -103,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="20, Desember 2021"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/tv_genres"
         app:layout_constraintStart_toEndOf="@id/image_calendar"
         app:layout_constraintTop_toTopOf="@id/image_calendar" />
@@ -114,7 +122,8 @@
         android:layout_height="18dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_time"
-        android:tint="?attr/colorControlNormal"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/image_calendar"
         app:layout_constraintTop_toBottomOf="@id/image_calendar" />
 
@@ -125,7 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="1 Hour 30 Minute"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/tv_date"
         app:layout_constraintStart_toEndOf="@id/image_time"
         app:layout_constraintTop_toTopOf="@id/image_time" />
@@ -139,6 +148,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="Overview"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_poster" />
@@ -150,6 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Venom: Let There Be Carnage overview: After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady."
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@id/text_overview"
         app:layout_constraintStart_toStartOf="@id/text_overview"
         app:layout_constraintTop_toBottomOf="@id/text_overview" />
@@ -161,6 +172,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Actors"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@id/tv_overview"
         app:layout_constraintStart_toStartOf="@id/tv_overview"
         app:layout_constraintTop_toBottomOf="@id/tv_overview" />
