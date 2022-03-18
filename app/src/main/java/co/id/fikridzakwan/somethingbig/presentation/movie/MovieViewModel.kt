@@ -18,9 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
 
-    val getTrending = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
-    val getNowPlaying = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
-    val getUpcoming = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
+    val getTrending = MutableStateFlow<Resource<MutableList<Movie>>>(Resource.Loading())
+    val getNowPlaying = MutableStateFlow<Resource<MutableList<Movie>>>(Resource.Loading())
+    val getUpcoming = MutableStateFlow<Resource<MutableList<Movie>>>(Resource.Loading())
 
     fun getTrendingMovie() {
         viewModelScope.launch {

@@ -18,16 +18,16 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 class MovieInteractor @Inject constructor(private val repository: IMovieRepository) : MovieUseCase {
-    override fun getTrendingMovies(): Flow<List<Movie>> {
-        return repository.getTrendingMovies().map { it.map { it.mapToMovie() } }
+    override fun getTrendingMovies(): Flow<MutableList<Movie>> {
+        return repository.getTrendingMovies().map { it.map { it.mapToMovie() }.toMutableList() }
     }
 
-    override fun getNowPlayingMovies(): Flow<List<Movie>> {
-        return repository.getNowPlayingMovies().map { it.map { it.mapToMovie() } }
+    override fun getNowPlayingMovies(): Flow<MutableList<Movie>> {
+        return repository.getNowPlayingMovies().map { it.map { it.mapToMovie() }.toMutableList() }
     }
 
-    override fun getUpcomingMovies(): Flow<List<Movie>> {
-        return repository.getUpcomingMovies().map { it.map { it.mapToMovie() } }
+    override fun getUpcomingMovies(): Flow<MutableList<Movie>> {
+        return repository.getUpcomingMovies().map { it.map { it.mapToMovie() }.toMutableList() }
     }
 
     override fun getDetailMovie(id: Int): Flow<Detail> {

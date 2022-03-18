@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieUseCase {
 
-    fun getTrendingMovies(): Flow<List<Movie>>
+    fun getTrendingMovies(): Flow<MutableList<Movie>>
 
-    fun getNowPlayingMovies(): Flow<List<Movie>>
+    fun getNowPlayingMovies(): Flow<MutableList<Movie>>
 
-    fun getUpcomingMovies(): Flow<List<Movie>>
+    fun getUpcomingMovies(): Flow<MutableList<Movie>>
 
     fun getDetailMovie(id: Int): Flow<Detail>
 

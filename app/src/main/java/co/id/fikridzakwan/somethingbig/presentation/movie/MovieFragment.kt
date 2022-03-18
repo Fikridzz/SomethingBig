@@ -109,7 +109,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                     is Resource.Success -> {
                         binding.rvTrending.visible()
                         binding.shimmerLayout1.gone()
-                        trendingMovieAdapter.setData(it.data)
+                        trendingMovieAdapter.submitList(it.data)
 
                         // Random pick image backdrop from api
                         val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
@@ -140,7 +140,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                     is Resource.Success -> {
                         binding.rvNowPlaying.visible()
                         binding.shimmerLayout2.gone()
-                        nowPlayingMovieAdapter.setData(it.data)
+                        nowPlayingMovieAdapter.submitList(it.data)
                     }
                     is Resource.Error -> {
                         binding.shimmerLayout2.gone()
@@ -157,7 +157,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                     is Resource.Success -> {
                         binding.rvUpcoming.visible()
                         binding.shimmerLayout3.gone()
-                        upcomingMovieAdapter.setData(it.data)
+                        upcomingMovieAdapter.submitList(it.data)
                     }
                     is Resource.Error -> {
                         binding.shimmerLayout3.gone()
