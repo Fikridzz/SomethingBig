@@ -17,8 +17,7 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.Flow
 import javax.inject.Inject
 
-@HiltViewModel
-class MoreMovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
+class MoreMovieViewModel(private val movieUseCase: MovieUseCase) : ViewModel() {
 
     val getMoreMovie = MutableStateFlow<Resource<PagingData<MovieInteractor.UiModel>>>(Resource.Loading())
 

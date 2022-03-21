@@ -18,9 +18,11 @@ import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
+
+    private val viewModel: SearchMovieViewModel by viewModel()
 
     private val moviePager: MoviePagerAdapter by lazy {
         MoviePagerAdapter(
@@ -29,8 +31,6 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
             }
         )
     }
-
-    private val viewModel: SearchMovieViewModel by viewModels()
 
     override fun getViewBinding() = FragmentSearchMovieBinding.inflate(layoutInflater)
 

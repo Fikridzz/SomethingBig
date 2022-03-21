@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class MovieInteractor @Inject constructor(private val repository: IMovieRepository) : MovieUseCase {
+class MovieInteractor(private val repository: IMovieRepository) : MovieUseCase {
     override fun getTrendingMovies(): Flow<MutableList<Movie>> {
         return repository.getTrendingMovies().map { it.map { it.mapToMovie() }.toMutableList() }
     }

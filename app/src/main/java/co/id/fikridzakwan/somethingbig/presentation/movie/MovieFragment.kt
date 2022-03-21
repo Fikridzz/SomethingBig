@@ -23,11 +23,11 @@ import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dagger.hilt.android.AndroidEntryPoint
+import org.koin.android.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
-    private val viewModel: MovieViewModel by viewModels()
+    private val viewModel: MovieViewModel by viewModel()
 
     private val trendingMovieAdapter: TrendingMovieAdapter by lazy {
         TrendingMovieAdapter(

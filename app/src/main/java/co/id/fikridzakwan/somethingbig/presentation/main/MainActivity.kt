@@ -12,7 +12,6 @@ import co.id.fikridzakwan.somethingbig.databinding.ActivityMainBinding
 import co.id.fikridzakwan.somethingbig.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)

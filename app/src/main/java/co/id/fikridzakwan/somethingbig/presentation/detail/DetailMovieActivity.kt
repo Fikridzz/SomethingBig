@@ -21,11 +21,11 @@ import co.id.fikridzakwan.somethingbig.utils.AppConstants.EXTRA_ID
 import co.id.fikridzakwan.somethingbig.utils.BaseActivity
 import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
 import dagger.hilt.android.AndroidEntryPoint
+import org.koin.android.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
 
-    private val viewModel: DetailMovieViewModel by viewModels()
+    private val viewModel: DetailMovieViewModel by viewModel()
     private var isCover = false
 
     companion object {

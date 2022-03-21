@@ -15,8 +15,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class MovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
+class MovieViewModel(private val movieUseCase: MovieUseCase) : ViewModel() {
 
     val getTrending = MutableStateFlow<Resource<MutableList<Movie>>>(Resource.Loading())
     val getNowPlaying = MutableStateFlow<Resource<MutableList<Movie>>>(Resource.Loading())

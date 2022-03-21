@@ -18,11 +18,11 @@ import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
 
-    private val viewModel: MoreMovieViewModel by viewModels()
+    private val viewModel: MoreMovieViewModel by viewModel()
 
     private var type: String = ""
 

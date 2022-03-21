@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class MovieRepository @Inject constructor(private val movieApi: MovieApi) : IMovieRepository {
+class MovieRepository(private val movieApi: MovieApi) : IMovieRepository {
     override fun getTrendingMovies(): Flow<List<ResultsItem>> {
         return flow {
             val response = movieApi.getTrendingMovies(BuildConfig.API_KEY, 1)

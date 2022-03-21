@@ -16,8 +16,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class DetailMovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
+class DetailMovieViewModel(private val movieUseCase: MovieUseCase) : ViewModel() {
 
     val getDetail = MutableStateFlow<Resource<Detail>>(Resource.Loading())
 
