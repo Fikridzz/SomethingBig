@@ -12,7 +12,7 @@ val baseModule = module {
 
     single { MovieApi(get()) }
 
-    factory<IMovieRepository> { MovieRepository(get()) }
+    factory<IMovieRepository> { MovieRepository(get(), get()) }
 
     factory<MovieUseCase> { MovieInteractor(get()) }
 }

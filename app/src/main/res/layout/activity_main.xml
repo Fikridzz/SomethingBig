@@ -15,6 +15,14 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/bottom_navigation" />
 
+    <View
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/bg_shadow"
+        android:layout_above="@id/nav_view"
+        android:rotation="180" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"

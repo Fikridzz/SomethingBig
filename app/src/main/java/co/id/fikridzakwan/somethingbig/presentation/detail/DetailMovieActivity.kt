@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
-import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.transition.TransitionManager
 import co.id.fikridzakwan.somethingbig.R
@@ -20,13 +20,15 @@ import co.id.fikridzakwan.somethingbig.domain.model.Detail
 import co.id.fikridzakwan.somethingbig.utils.AppConstants.EXTRA_ID
 import co.id.fikridzakwan.somethingbig.utils.BaseActivity
 import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
-import dagger.hilt.android.AndroidEntryPoint
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
 
     private val viewModel: DetailMovieViewModel by viewModel()
     private var isCover = false
+    private var dataDetail: Detail? = null
+    private var isFavorite = false
+    private var movieId: Int = 0
 
     companion object {
         fun start(context: Context, id: Int) {
@@ -45,24 +47,78 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
     override fun initAction() {
         binding.apply {
             detailAnimation()
+
+            btnFavorite.setOnClickListener {
+                val favoriteState = !isFavorite
+                setFavoriteState(favoriteState)
+
+                if (!isFavorite) {
+                    val newData = Detail(
+                        dataDetail!!.id,
+                        dataDetail!!.title,
+                        dataDetail!!.overview,
+                        dataDetail!!.genres,
+                        dataDetail!!.runtime,
+                        dataDetail!!.popularity,
+                        dataDetail!!.voteAverage,
+                        dataDetail!!.releaseDate,
+                        dataDetail!!.posterPath,
+                        dataDetail!!.backdropPath
+                    )
+                    viewModel.insertFavoriteMovie(newData)
+                    isFavorite = true
+                } else {
+                    isFavorite = false
+                    viewModel.deleteFavoriteMovie(dataDetail!!.id)
+                }
+            }
         }
     }
 
     override fun initProcess() {
         val extra = intent.getIntExtra(EXTRA_ID, 0)
-        viewModel.getDetailMovie(extra)
+        movieId = extra
+        viewModel.getDetailMovieFromDb(extra)
     }
 
     override fun initObservers() {
         lifecycleScope.launchWhenStarted {
-            viewModel.getDetail.collect {
+            viewModel.dataFromDb.collect {
                 when (it) {
                     is Resource.Loading -> {
                         binding.progressBar.visible()
                     }
                     is Resource.Success -> {
                         binding.progressBar.gone()
-                        it.data?.let { v -> populateDetail(v) }
+                        if (it.data != null) {
+                            populateDetail(it.data)
+                            setFavoriteState(true)
+                            dataDetail = it.data
+                            isFavorite = true
+                        }
+                    }
+                    is Resource.Error -> {
+                        if (dataDetail == null) {
+                            viewModel.getDetailMovie(movieId)
+                        }
+                        setFavoriteState(false)
+                        isFavorite = false
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.getDetail.collect {
+                when (it) {
+                    is Resource.Loading -> Unit
+                    is Resource.Success -> {
+                        binding.progressBar.gone()
+
+                        if (it.data != null) {
+                            dataDetail = it.data
+                            populateDetail(it.data)
+                        }
                     }
                     is Resource.Error -> {
                         binding.progressBar.gone()
@@ -124,7 +180,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
                 anim.setEvaluator(ArgbEvaluator())
                 anim.addUpdateListener {
                     val configuration = Configuration()
-                    val currentNightMode = this.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
+                    val currentNightMode =
+                        this.resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)
 
                     binding.apply {
                         when (currentNightMode) {
@@ -158,6 +215,24 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
             } else {
                 onBackPressed()
             }
+        }
+    }
+
+    private fun setFavoriteState(favoriteState: Boolean) {
+        if (favoriteState) {
+            binding.btnFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_favorite
+                )
+            )
+        } else {
+            binding.btnFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_favorite_border
+                )
+            )
         }
     }
 }

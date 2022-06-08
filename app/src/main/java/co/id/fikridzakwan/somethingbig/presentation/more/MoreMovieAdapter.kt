@@ -41,7 +41,7 @@ class MoreMovieAdapter(private val onItemClickListener: (Movie) -> Unit) : Recyc
                 tvTitle.text = data.title
                 tvDescription.text = data.overview
                 tvDate.text = data.releaseDate
-                tvGenres.text = data.genreIds
+                tvGenres.text = data.genres
             }
             itemView.setOnClickListener {
                 onItemClickListener(data)

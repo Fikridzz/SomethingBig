@@ -2,10 +2,8 @@ package co.id.fikridzakwan.somethingbig.utils
 
 import android.app.Application
 import co.id.fikridzakwan.somethingbig.di.baseModule
-import co.id.fikridzakwan.somethingbig.di.featuremodule.detailModule
-import co.id.fikridzakwan.somethingbig.di.featuremodule.moreModule
-import co.id.fikridzakwan.somethingbig.di.featuremodule.movieModule
-import co.id.fikridzakwan.somethingbig.di.featuremodule.searchModule
+import co.id.fikridzakwan.somethingbig.di.databaseModule
+import co.id.fikridzakwan.somethingbig.di.featuremodule.*
 import co.id.fikridzakwan.somethingbig.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,8 +21,10 @@ class AppApplication : Application() {
             modules(
                 listOf(
                     networkModule,
+                    databaseModule,
                     baseModule,
                     movieModule,
+                    favoriteModule,
                     detailModule,
                     moreModule,
                     searchModule

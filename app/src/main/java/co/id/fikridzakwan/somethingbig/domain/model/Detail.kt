@@ -10,5 +10,6 @@ data class Detail(
     val voteAverage: Double,
     val releaseDate: String,
     val posterPath: String,
-    val backdropPath: String
+    val backdropPath: String,
+//    var isFavorite: Boolean
 )

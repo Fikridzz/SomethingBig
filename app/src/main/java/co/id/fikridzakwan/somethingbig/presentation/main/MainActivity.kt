@@ -24,6 +24,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_movie -> showBottomNav()
+                R.id.nav_favorite -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
