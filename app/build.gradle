@@ -35,9 +35,8 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding = true
+        viewBinding true
     }
-    dynamicFeatures = [':dynamicfeature']
 }
 
 dependencies {
@@ -57,7 +56,7 @@ dependencies {
 
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
-    implementation "androidx.paging:paging-rxjava2:$pagingVersion"
+    implementation "androidx.paging:paging-rxjava2-ktx:$pagingVersion"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -89,6 +88,7 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
@@ -98,6 +98,13 @@ dependencies {
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
+    // Lottie
     implementation "com.airbnb.android:lottie:4.2.1"
 
+    // Recyclerview selection
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
+
+    // Chuck
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 }

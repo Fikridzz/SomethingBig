@@ -17,8 +17,7 @@ import kotlinx.coroutines.launch
 import java.lang.Error
 import javax.inject.Inject
 
-@HiltViewModel
-class SearchMovieViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
+class SearchMovieViewModel(private val movieUseCase: MovieUseCase) : ViewModel() {
 
     val getResult = MutableStateFlow<Resource<PagingData<MovieInteractor.UiModel>>>(Resource.Loading())
 

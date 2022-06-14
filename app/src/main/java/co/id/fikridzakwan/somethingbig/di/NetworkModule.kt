@@ -2,37 +2,34 @@ package co.id.fikridzakwan.somethingbig.di
 
 import co.id.fikridzakwan.somethingbig.BuildConfig
 import co.id.fikridzakwan.somethingbig.data.source.network.MovieApiClient
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
+import java.util.concurrent.TimeUnit
 
-@Module
-@InstallIn(SingletonComponent::class)
-class NetworkModule {
-
-    @Provides
-    fun provideOkhttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+val networkModule = module {
+    single {
+        OkHttpClient.Builder()
+            .addInterceptor(ChuckInterceptor(androidContext()))
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
             .build()
     }
 
-    @Provides
-    fun provideApiService(client: OkHttpClient) : MovieApiClient {
+    single {
         val retrofit = Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(get())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .client(client)
-            .baseUrl(BuildConfig.BASE_URL)
             .build()
-
-        return retrofit.create(MovieApiClient::class.java)
+        retrofit.create(MovieApiClient::class.java)
     }
 }

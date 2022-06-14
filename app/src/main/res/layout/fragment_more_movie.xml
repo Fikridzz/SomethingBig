@@ -18,6 +18,7 @@
         android:id="@+id/rv_more_movie"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
@@ -28,5 +29,36 @@
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/btn_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/color_light_blue"
+        android:text="Retry"
+        android:textAllCaps="false"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text_empty_list"/>
+
+    <TextView
+        android:id="@+id/text_empty_list"
+        style="@style/SomethingBigTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Empty list"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_retry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="text_empty_list, btn_retry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

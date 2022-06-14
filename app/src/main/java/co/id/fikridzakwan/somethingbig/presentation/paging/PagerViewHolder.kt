@@ -18,7 +18,7 @@ class PagerViewHolder(private val binding: ItemMoreMovieBinding) :
                 tvTitle.text = data.title
                 tvDescription.text = data.overview
                 tvDate.text = data.releaseDate
-                tvGenres.text = data.genreIds
+                tvGenres.text = data.genres
         }
         itemView.setOnClickListener {
             onItemClickListener(data)

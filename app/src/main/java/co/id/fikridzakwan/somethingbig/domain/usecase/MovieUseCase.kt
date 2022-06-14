@@ -1,6 +1,7 @@
 package co.id.fikridzakwan.somethingbig.domain.usecase
 
 import androidx.paging.PagingData
+import co.id.fikridzakwan.somethingbig.data.source.model.MovieEntity
 import co.id.fikridzakwan.somethingbig.domain.model.Detail
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.utils.ReqStatus
@@ -8,15 +9,25 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieUseCase {
 
-    fun getTrendingMovies(): Flow<List<Movie>>
+    suspend fun getTrendingMovies(): Flow<MutableList<Movie>>
 
-    fun getNowPlayingMovies(): Flow<List<Movie>>
+    suspend fun getNowPlayingMovies(): Flow<MutableList<Movie>>
 
-    fun getUpcomingMovies(): Flow<List<Movie>>
+    suspend fun getUpcomingMovies(): Flow<MutableList<Movie>>
 
-    fun getDetailMovie(id: Int): Flow<Detail>
+    suspend fun getDetailMovie(id: Int): Flow<Detail>
 
-    fun getMoreMovie(value: String) : Flow<PagingData<MovieInteractor.UiModel>>
+    suspend fun getMoreMovie(value: String) : Flow<PagingData<MovieInteractor.UiModel>>
 
-    fun searchMovies(query: String) : Flow<PagingData<MovieInteractor.UiModel>>
+    suspend fun searchMovies(query: String) : Flow<PagingData<MovieInteractor.UiModel>>
+
+    suspend fun getFavoriteMovies() : Flow<MutableList<Detail>>
+
+    suspend fun getFavoriteMovieById(movieId: Int) : Flow<Detail>
+
+    suspend fun insertFavoriteMovie(data: Detail)
+
+    suspend fun deleteFavoriteMovie(movieId: Int)
+
+    suspend fun deleteAllFavoriteMovie()
 }

@@ -2,40 +2,31 @@ package co.id.fikridzakwan.somethingbig.presentation.movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import co.id.fikridzakwan.somethingbig.BuildConfig
 import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.databinding.ItemMovieSmallBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
-import com.bumptech.glide.Glide
 
-class NowPlayingMovieAdapter(private val onItemClickListener: (Movie) -> Unit) :
-    RecyclerView.Adapter<NowPlayingMovieAdapter.NowPlayingViewHolder>() {
+class NowPlayingMovieAdapter(
+    private val onItemClickListener: (Movie) -> Unit
+) : ListAdapter<Movie, NowPlayingMovieAdapter.ViewHolder>(NowPlayingMovieCallback) {
 
-    val listItem = ArrayList<Movie>()
-
-    fun setData(movieListData: List<Movie>?) {
-        if (movieListData == null) return
-        listItem.addAll(movieListData)
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NowPlayingViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ItemMovieSmallBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return NowPlayingViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: NowPlayingViewHolder, position: Int) {
-        val data = listItem[position]
-        holder.bind(data)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        val limit = 10
-        return if (listItem.size > limit) limit else listItem.size
+    override fun submitList(list: MutableList<Movie>?) {
+        super.submitList(list?.map { it.copy() })
     }
 
-    inner class NowPlayingViewHolder(private val binding: ItemMovieSmallBinding) :
+    inner class ViewHolder(private val binding: ItemMovieSmallBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Movie) {
             binding.apply {
@@ -44,6 +35,18 @@ class NowPlayingMovieAdapter(private val onItemClickListener: (Movie) -> Unit) :
             }
             itemView.setOnClickListener {
                 onItemClickListener(data)
+            }
+        }
+    }
+
+    companion object {
+        val NowPlayingMovieCallback = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
             }
         }
     }

@@ -16,12 +16,12 @@ class SearchMoviePagingSource(
     private val service: MovieApiClient,
     private val query: String
 ) : PagingSource<Int, ResultsItem>() {
+
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultsItem> {
         val position = params.key ?: 1
         return try {
             val response = service.searchMovies(BuildConfig.API_KEY, query, position)
             val repos = response.body()?.results
-
             LoadResult.Page(
                 data = repos!!,
                 prevKey = if (position == 1) null else position - 1,

@@ -12,7 +12,6 @@ import co.id.fikridzakwan.somethingbig.databinding.ActivityMainBinding
 import co.id.fikridzakwan.somethingbig.utils.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
@@ -25,6 +24,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_movie -> showBottomNav()
+                R.id.nav_favorite -> showBottomNav()
                 else -> hideBottomNav()
             }
         }

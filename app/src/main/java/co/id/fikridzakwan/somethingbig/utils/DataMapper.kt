@@ -1,6 +1,7 @@
 package co.id.fikridzakwan.somethingbig.utils
 
 import co.id.fikridzakwan.somethingbig.BuildConfig
+import co.id.fikridzakwan.somethingbig.data.source.model.MovieEntity
 import co.id.fikridzakwan.somethingbig.data.source.response.DetailResponse
 import co.id.fikridzakwan.somethingbig.data.source.response.ResultsItem
 import co.id.fikridzakwan.somethingbig.domain.model.Detail
@@ -17,7 +18,7 @@ object DataMapper {
             id = id ?: 0,
             title = title ?: "",
             overview = overview ?: "",
-            genreIds = genreIds?.map { it.getGenre() }?.joinToString(separator = ", ") { it } ?: "",
+            genres = genreIds?.map { it.getGenre() }?.joinToString(separator = ", ") { it } ?: "",
             popularity = popularity ?: 0.0,
             voteAverage = voteAverage ?: 0.0,
             posterPath = posterPath?.loadImage() ?: "",
@@ -36,7 +37,38 @@ object DataMapper {
             voteAverage = voteAverage ?: 0.0,
             releaseDate = releaseDate?.convertDate() ?: "",
             posterPath = posterPath?.loadImage() ?: "",
-            backdropPath = backdropPath?.loadImageOriginal() ?: ""
+            backdropPath = backdropPath?.loadImageOriginal() ?: "",
+//            isFavorite = true
+        )
+
+    fun MovieEntity.mapToMovie(): Detail =
+        Detail(
+            id = id ?: 0,
+            title = title ?: "",
+            overview = overview ?: "",
+            runtime = runtime ?: "",
+            genres = genres ?: "",
+            popularity = popularity ?: 0.0,
+            voteAverage = voteAverage ?: 0.0,
+            releaseDate = releaseDate ?: "",
+            posterPath = posterPath ?: "",
+            backdropPath = backdropPath ?: "",
+//            isFavorite = isFavorite
+        )
+
+    fun Detail.mapToMovieEntity(): MovieEntity =
+        MovieEntity(
+            id = id,
+            title = title,
+            overview = overview,
+            runtime = runtime,
+            genres = genres,
+            popularity = popularity,
+            voteAverage = voteAverage,
+            releaseDate = releaseDate,
+            posterPath = posterPath,
+            backdropPath = backdropPath,
+//            isFavorite = isFavorite
         )
 
     private fun Int.getGenre() =

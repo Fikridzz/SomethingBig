@@ -8,17 +8,3 @@
     android:background="@drawable/bg_rounded_image"
     android:scaleType="fitXY"
     android:src="@drawable/ic_launcher_background" />
-
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:paddingEnd="8dp">-->
-
-<!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:id="@+id/img_poster"-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="220dp"-->
-<!--        android:scaleType="fitXY"-->
-<!--        android:background="@drawable/bg_rounded_image"/>-->
-
-<!--</LinearLayout>-->

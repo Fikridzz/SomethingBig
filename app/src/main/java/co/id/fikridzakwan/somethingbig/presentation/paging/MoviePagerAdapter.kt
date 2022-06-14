@@ -19,6 +19,7 @@ class MoviePagerAdapter(
         uiModel.let {
             when (uiModel) {
                 is MovieInteractor.UiModel.MovieItem -> holder.bind(uiModel.movie, onItemClickListener)
+                else -> Unit
             }
         }
     }
