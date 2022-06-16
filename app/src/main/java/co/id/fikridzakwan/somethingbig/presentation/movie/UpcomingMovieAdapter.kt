@@ -6,13 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import co.id.fikridzakwan.somethingbig.BuildConfig
+import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.loadImage
+import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.databinding.ItemMovieSmallBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import com.bumptech.glide.Glide
 
 class UpcomingMovieAdapter(
-    private val onItemClickListener: (Movie) -> Unit
+    private val onItemClickListener: (Movie) -> Unit,
+    private val onItemMoreClickListener: () -> Unit
 ) : ListAdapter<Movie, UpcomingMovieAdapter.UpcomingViewHolder>(UpcomingMovieCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingViewHolder {
@@ -28,15 +31,24 @@ class UpcomingMovieAdapter(
         super.submitList(list?.map { it.copy() })
     }
 
+    override fun getItemCount(): Int {
+        val limit = 11
+        return if (currentList.size > limit) limit else currentList.size
+    }
+
     inner class UpcomingViewHolder(private val binding: ItemMovieSmallBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Movie) {
             binding.apply {
-                imgPoster.loadImage(data.posterPath, itemView.context)
+                imgPoster.loadImage(data.posterPath ?: "", itemView.context)
                 imgPoster.clipToOutline = true
+                if (data.id == 1) {
+                    imgPoster.gone()
+                    groupMore.visible()
+                }
             }
             itemView.setOnClickListener {
-                onItemClickListener(data)
+                if (data.id == 1) onItemMoreClickListener() else onItemClickListener(data)
             }
         }
     }

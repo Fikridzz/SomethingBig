@@ -21,7 +21,11 @@ class MoreMoviePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultsItem> {
         val position = params.key ?: 1
         return try {
-            val response = service.getMoreMovie(type, BuildConfig.API_KEY, position)
+            val response = if (type == "trending") {
+                service.getTrendingMovies(BuildConfig.API_KEY, position)
+            } else {
+                service.getMoreMovie(type, BuildConfig.API_KEY, position)
+            }
             val repos = response.body()?.results
             LoadResult.Page(
                 data = repos!!,

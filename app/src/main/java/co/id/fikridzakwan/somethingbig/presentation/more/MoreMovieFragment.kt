@@ -29,7 +29,7 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
     private val moviePager: MoviePagerAdapter by lazy {
         MoviePagerAdapter(
             onItemClickListener = {
-                DetailMovieActivity.start(requireContext(), it.id)
+                DetailMovieActivity.start(requireContext(), it.id ?: 0)
             }
         )
     }
@@ -62,6 +62,7 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
         when (type) {
             "now_playing" -> titleToolbar =  "Now playing"
             "upcoming" -> titleToolbar = "Upcoming"
+            "trending" -> titleToolbar = "Trending"
         }
         binding.toolbar.setTitle(titleToolbar)
 

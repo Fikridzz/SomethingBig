@@ -27,7 +27,7 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
     private val moviePager: MoviePagerAdapter by lazy {
         MoviePagerAdapter(
             onItemClickListener = {
-                DetailMovieActivity.start(requireContext(), it.id)
+                DetailMovieActivity.start(requireContext(), it.id ?: 0)
             }
         )
     }

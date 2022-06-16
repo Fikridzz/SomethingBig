@@ -37,7 +37,7 @@ class MoreMovieAdapter(private val onItemClickListener: (Movie) -> Unit) : Recyc
         val binding = ItemMoreMovieBinding.bind(itemView)
         fun bind(data: Movie) {
             binding.apply {
-                imgPoster.loadImage(data.posterPath, itemView.context)
+                imgPoster.loadImage(data.posterPath ?: "", itemView.context)
                 tvTitle.text = data.title
                 tvDescription.text = data.overview
                 tvDate.text = data.releaseDate

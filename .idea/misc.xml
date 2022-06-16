@@ -27,7 +27,7 @@
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/font/source_sans_pro_black.xml" value="0.16770833333333332" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/font/source_sans_pro_bold.xml" value="0.16770833333333332" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/activity_detail_movie.xml" value="0.176" />
-        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/activity_main.xml" value="0.8" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/activity_main.xml" value="0.2553846153846154" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/activity_splash_screen.xml" value="0.259375" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/custom_loading.xml" value="0.259375" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/fragment_favorite.xml" value="0.259375" />
@@ -50,6 +50,17 @@
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/placeholder_item_small.xml" value="0.259375" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/layout/placeholder_litem_large.xml" value="0.259375" />
         <entry key="..\:/Users/BUANA/Desktop/Fikri/SomethingBig/app/src/main/res/menu/menu_bottom_nav.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/drawable/bg_movie_favorite.xml" value="0.1675" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/drawable/bg_oval.xml" value="0.1675" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/drawable/bg_rounded_detail.xml" value="0.1675" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/drawable/bg_rounded_image.xml" value="0.1675" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/drawable/bg_rounded_profile.xml" value="0.1675" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/drawable/bg_shadow.xml" value="0.1675" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/layout/activity_detail_movie.xml" value="0.2553846153846154" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/layout/activity_main.xml" value="0.259375" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/layout/fragment_more_movie.xml" value="0.2553846153846154" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/layout/item_movie_large.xml" value="0.2553846153846154" />
+        <entry key="..\:/Users/BUANA/Desktop/Fikri/android/SomethingBig/app/src/main/res/layout/item_movie_small.xml" value="0.259375" />
       </map>
     </option>
   </component>

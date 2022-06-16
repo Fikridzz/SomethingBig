@@ -14,7 +14,7 @@ class PagerViewHolder(private val binding: ItemMoreMovieBinding) :
 
     fun bind(data: Movie, onItemClickListener: (Movie) -> Unit) {
             with(binding) {
-                imgPoster.loadImage(data.posterPath, itemView.context)
+                imgPoster.loadImage(data.posterPath ?: "", itemView.context)
                 tvTitle.text = data.title
                 tvDescription.text = data.overview
                 tvDate.text = data.releaseDate

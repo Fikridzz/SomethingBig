@@ -6,13 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import co.id.fikridzakwan.somethingbig.BuildConfig
+import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.loadImage
+import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.databinding.ItemMovieLargeBinding
 import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import com.bumptech.glide.Glide
 
 class TrendingMovieAdapter(
-    private val onItemClickListener: (Movie) -> Unit
+    private val onItemClickListener: (Movie) -> Unit,
+    private val onItemMoreClickListener: () -> Unit
 ) : ListAdapter<Movie, TrendingMovieAdapter.PopularViewHolder>(PopularMovieCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
@@ -28,14 +31,23 @@ class TrendingMovieAdapter(
         super.submitList(list?.map { it.copy() })
     }
 
+    override fun getItemCount(): Int {
+        val limit = 11
+        return if (currentList.size > limit) limit else currentList.size
+    }
+
     inner class PopularViewHolder(private val binding: ItemMovieLargeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Movie) {
             with(binding) {
-                imgPosterLarge.loadImage(data.posterPath, itemView.context)
+                imgPosterLarge.loadImage(data.posterPath ?: "", itemView.context)
                 imgPosterLarge.clipToOutline = true
-                itemView.setOnClickListener {
-                    onItemClickListener(data)
+                if (data.id == 1) {
+                    imgPosterLarge.gone()
+                    groupMore.visible()
                 }
+            }
+            itemView.setOnClickListener {
+                if (data.id == 1) onItemMoreClickListener() else onItemClickListener(data)
             }
         }
     }

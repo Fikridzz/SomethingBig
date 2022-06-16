@@ -2,11 +2,9 @@ package co.id.fikridzakwan.somethingbig.presentation.movie
 
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
-import android.os.Bundle
 import android.transition.TransitionInflater
-import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +13,7 @@ import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMovieBinding
+import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import co.id.fikridzakwan.somethingbig.utils.AppConstants
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
@@ -22,7 +21,6 @@ import co.id.fikridzakwan.somethingbig.utils.makeStatusBarTransparent
 import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import dagger.hilt.android.AndroidEntryPoint
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieFragment : BaseFragment<FragmentMovieBinding>() {
@@ -32,7 +30,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     private val trendingMovieAdapter: TrendingMovieAdapter by lazy {
         TrendingMovieAdapter(
             onItemClickListener = {
-                DetailMovieActivity.start(requireContext(), it.id)
+                DetailMovieActivity.start(requireContext(), it.id ?: 0)
+            },
+            onItemMoreClickListener = {
+                navigateToMoreMovie("trending")
             }
         )
     }
@@ -40,7 +41,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     private val nowPlayingMovieAdapter: NowPlayingMovieAdapter by lazy {
         NowPlayingMovieAdapter(
             onItemClickListener = {
-                DetailMovieActivity.start(requireContext(), it.id)
+                DetailMovieActivity.start(requireContext(), it.id ?: 0)
+            },
+            onItemMoreClickListener = {
+                navigateToMoreMovie("now_playing")
             }
         )
     }
@@ -48,7 +52,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
     private val upcomingMovieAdapter: UpcomingMovieAdapter by lazy {
         UpcomingMovieAdapter(
             onItemClickListener = {
-                DetailMovieActivity.start(requireContext(), it.id)
+                DetailMovieActivity.start(requireContext(), it.id ?: 0)
+            },
+            onItemMoreClickListener = {
+                navigateToMoreMovie("upcoming")
             }
         )
     }
@@ -88,12 +95,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
             headerNowPlaying.setOnClickListener {
                 // Parsing string from fragment to another fragment
-                val bundle = bundleOf(AppConstants.EXTRA_TYPE to "now_playing")
-                findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie, bundle)
+                navigateToMoreMovie("now_playing")
             }
             headerUpcoming.setOnClickListener {
-                val bundle = bundleOf(AppConstants.EXTRA_TYPE to "upcoming")
-                findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie, bundle)
+                navigateToMoreMovie("upcoming")
             }
             headerSearch.setOnClickListener { findNavController().navigate(R.id.action_nav_movie_to_nav_search_movie) }
         }
@@ -109,6 +114,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                     is Resource.Success -> {
                         binding.rvTrending.visible()
                         binding.shimmerLayout1.gone()
+                        it.data?.add(10, Movie(1, null, null, null, null, null, null, null, null))
                         trendingMovieAdapter.submitList(it.data)
 
                         // Random pick image backdrop from api
@@ -140,6 +146,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                     is Resource.Success -> {
                         binding.rvNowPlaying.visible()
                         binding.shimmerLayout2.gone()
+                        it.data?.add(10, Movie(1, null, null, null, null, null, null, null, null))
                         nowPlayingMovieAdapter.submitList(it.data)
                     }
                     is Resource.Error -> {
@@ -153,10 +160,13 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.getUpcoming.collect {
                 when (it) {
-                    is Resource.Loading -> { binding.shimmerLayout3.visible() }
+                    is Resource.Loading -> {
+                        binding.shimmerLayout3.visible()
+                    }
                     is Resource.Success -> {
                         binding.rvUpcoming.visible()
                         binding.shimmerLayout3.gone()
+                        it.data?.add(10, Movie(1, null, null, null, null, null, null, null, null))
                         upcomingMovieAdapter.submitList(it.data)
                     }
                     is Resource.Error -> {
@@ -166,6 +176,11 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                 }
             }
         }
+    }
+
+    private fun navigateToMoreMovie(type: String) {
+        val bundle = bundleOf(AppConstants.EXTRA_TYPE to type)
+        findNavController().navigate(R.id.action_nav_movie_to_nav_more_movie, bundle)
     }
 
     override fun onDestroy() {
