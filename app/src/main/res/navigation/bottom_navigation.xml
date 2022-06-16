@@ -12,13 +12,9 @@
         tools:layout="@layout/fragment_movie" >
         <action
             android:id="@+id/action_nav_movie_to_nav_more_movie"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
             app:destination="@id/nav_more_movie"/>
         <action
             android:id="@+id/action_nav_movie_to_nav_search_movie"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/slide_out"
             app:destination="@id/nav_search_movie" />
     </fragment>
     <fragment

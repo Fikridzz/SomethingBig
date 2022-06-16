@@ -64,9 +64,9 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
 
     override fun initUI() {
         activity?.makeStatusBarTransparent()
-        val inflater = TransitionInflater.from(requireContext())
-        exitTransition = inflater.inflateTransition(R.transition.slide_left)
-        enterTransition = inflater.inflateTransition(R.transition.slide_right)
+//        val inflater = TransitionInflater.from(requireContext())
+//        exitTransition = inflater.inflateTransition(R.transition.slide_left)
+//        enterTransition = inflater.inflateTransition(R.transition.slide_right)
 
         with(binding.rvTrending) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

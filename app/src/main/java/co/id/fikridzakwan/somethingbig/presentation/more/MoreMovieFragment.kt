@@ -34,23 +34,6 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
         )
     }
 
-//    private val moreMovieAdapter: MoreMovieAdapter by lazy {
-//        MoreMovieAdapter(
-//            onItemClickListener = {
-//                DetailMovieActivity.start(requireContext(), it.id)
-//            }
-//        )
-//    }
-
-//    companion object {
-//        fun start(value: String, id: Int) : MovieFragment {
-//            return MovieFragment().apply {
-//                val bundle = bundleOf(AppConstants.EXTRA_TYPE to  value)
-//                findNavController().navigate(id, bundle)
-//            }
-//        }
-//    }
-
     override fun getViewBinding() = FragmentMoreMovieBinding.inflate(layoutInflater)
 
     override fun initUI() {
