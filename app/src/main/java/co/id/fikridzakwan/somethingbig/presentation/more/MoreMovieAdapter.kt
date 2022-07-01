@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import co.id.fikridzakwan.core.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.databinding.ItemMoreMovieBinding
-import co.id.fikridzakwan.somethingbig.domain.model.Movie
-import com.bumptech.glide.Glide
 
 class MoreMovieAdapter(private val onItemClickListener: (Movie) -> Unit) : RecyclerView.Adapter<MoreMovieAdapter.MoreViewHolder>() {
 

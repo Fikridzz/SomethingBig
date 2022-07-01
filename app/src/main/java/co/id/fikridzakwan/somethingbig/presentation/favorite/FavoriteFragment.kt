@@ -1,17 +1,11 @@
 package co.id.fikridzakwan.somethingbig.presentation.favorite
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.visible
-import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentFavoriteBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
@@ -52,10 +46,10 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>() {
         lifecycleScope.launchWhenCreated {
             viewModel.getFavoriteMovies.collect {
                 when (it) {
-                    is Resource.Loading -> {
+                    is co.id.fikridzakwan.core.data.Resource.Loading -> {
                         binding.rvFavoriteMovie.gone()
                     }
-                    is Resource.Success -> {
+                    is co.id.fikridzakwan.core.data.Resource.Success -> {
                         if (!it.data.isNullOrEmpty()) {
                             binding.rvFavoriteMovie.visible()
                             favoriteAdapter.submitList(it.data)
@@ -64,9 +58,14 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>() {
                             binding.groupError.visible()
                         }
                     }
-                    is Resource.Error -> {
+                    is co.id.fikridzakwan.core.data.Resource.Error -> {
                         binding.tvPlaceholder.text = "Something wrong"
-                        binding.imgPlaceholder.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.error_404_image))
+                        binding.imgPlaceholder.setImageDrawable(
+                            ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.error_404_image
+                            )
+                        )
                         binding.groupError.visible()
                     }
                 }

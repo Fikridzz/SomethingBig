@@ -2,18 +2,15 @@ package co.id.fikridzakwan.somethingbig.presentation.movie
 
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
-import android.transition.TransitionInflater
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import co.id.fikridzakwan.core.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.visible
-import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMovieBinding
-import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import co.id.fikridzakwan.somethingbig.utils.AppConstants
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
@@ -108,10 +105,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.getTrending.collect {
                 when (it) {
-                    is Resource.Loading -> {
+                    is co.id.fikridzakwan.core.data.Resource.Loading -> {
                         binding.shimmerLayout1.visible()
                     }
-                    is Resource.Success -> {
+                    is co.id.fikridzakwan.core.data.Resource.Success -> {
                         binding.rvTrending.visible()
                         binding.shimmerLayout1.gone()
                         it.data?.add(10, Movie(1, null, null, null, null, null, null, null, null))
@@ -131,7 +128,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                         val filter = ColorMatrixColorFilter(matrix)
                         binding.imgBackdrop.colorFilter = filter
                     }
-                    is Resource.Error -> {
+                    is co.id.fikridzakwan.core.data.Resource.Error -> {
                         binding.shimmerLayout1.gone()
                         showToast(it.message ?: "")
                     }
@@ -142,14 +139,16 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.getNowPlaying.collect {
                 when (it) {
-                    is Resource.Loading -> { binding.shimmerLayout2.visible() }
-                    is Resource.Success -> {
+                    is co.id.fikridzakwan.core.data.Resource.Loading -> {
+                        binding.shimmerLayout2.visible()
+                    }
+                    is co.id.fikridzakwan.core.data.Resource.Success -> {
                         binding.rvNowPlaying.visible()
                         binding.shimmerLayout2.gone()
                         it.data?.add(10, Movie(1, null, null, null, null, null, null, null, null))
                         nowPlayingMovieAdapter.submitList(it.data)
                     }
-                    is Resource.Error -> {
+                    is co.id.fikridzakwan.core.data.Resource.Error -> {
                         binding.shimmerLayout2.gone()
                         showToast(it.message ?: "")
                     }
@@ -160,16 +159,16 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.getUpcoming.collect {
                 when (it) {
-                    is Resource.Loading -> {
+                    is co.id.fikridzakwan.core.data.Resource.Loading -> {
                         binding.shimmerLayout3.visible()
                     }
-                    is Resource.Success -> {
+                    is co.id.fikridzakwan.core.data.Resource.Success -> {
                         binding.rvUpcoming.visible()
                         binding.shimmerLayout3.gone()
                         it.data?.add(10, Movie(1, null, null, null, null, null, null, null, null))
                         upcomingMovieAdapter.submitList(it.data)
                     }
-                    is Resource.Error -> {
+                    is co.id.fikridzakwan.core.data.Resource.Error -> {
                         binding.shimmerLayout3.gone()
                         showToast(it.message ?: "")
                     }

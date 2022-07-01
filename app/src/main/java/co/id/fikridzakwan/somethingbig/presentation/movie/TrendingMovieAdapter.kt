@@ -5,13 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import co.id.fikridzakwan.somethingbig.BuildConfig
+import co.id.fikridzakwan.core.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.customview.visible
 import co.id.fikridzakwan.somethingbig.databinding.ItemMovieLargeBinding
-import co.id.fikridzakwan.somethingbig.domain.model.Movie
-import com.bumptech.glide.Glide
 
 class TrendingMovieAdapter(
     private val onItemClickListener: (Movie) -> Unit,

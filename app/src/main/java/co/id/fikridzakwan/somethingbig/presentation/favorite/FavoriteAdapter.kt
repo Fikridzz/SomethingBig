@@ -2,14 +2,12 @@ package co.id.fikridzakwan.somethingbig.presentation.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import co.id.fikridzakwan.somethingbig.R
+import co.id.fikridzakwan.core.domain.model.Detail
 import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.databinding.ItemMovieFavoriteBinding
-import co.id.fikridzakwan.somethingbig.domain.model.Detail
 
 class FavoriteAdapter(
     private val onItemClick: (Int) -> Unit

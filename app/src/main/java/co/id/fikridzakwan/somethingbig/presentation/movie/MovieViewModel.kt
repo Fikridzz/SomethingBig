@@ -1,24 +1,20 @@
 package co.id.fikridzakwan.somethingbig.presentation.movie
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import co.id.fikridzakwan.somethingbig.data.Resource
-import co.id.fikridzakwan.somethingbig.domain.model.Movie
-import co.id.fikridzakwan.somethingbig.domain.usecase.MovieUseCase
-import co.id.fikridzakwan.somethingbig.utils.BaseViewModel
-import co.id.fikridzakwan.somethingbig.utils.RxUtils
-import dagger.hilt.android.lifecycle.HiltViewModel
+import co.id.fikridzakwan.core.data.Resource
+import co.id.fikridzakwan.core.domain.model.Movie
+import co.id.fikridzakwan.core.domain.usecase.MovieUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class MovieViewModel(private val movieUseCase: MovieUseCase) : ViewModel() {
 
     val getTrending = MutableStateFlow<Resource<MutableList<Movie>>>(Resource.Loading())
-    val getNowPlaying = MutableStateFlow<Resource<MutableList<Movie>>>(Resource.Loading())
+    val getNowPlaying = MutableStateFlow<Resource<MutableList<Movie>>>(
+        Resource.Loading()
+    )
     val getUpcoming = MutableStateFlow<Resource<MutableList<Movie>>>(Resource.Loading())
 
     fun getTrendingMovie() {

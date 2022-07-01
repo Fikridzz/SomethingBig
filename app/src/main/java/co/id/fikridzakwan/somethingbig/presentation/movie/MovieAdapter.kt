@@ -3,11 +3,10 @@ package co.id.fikridzakwan.somethingbig.presentation.movie
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import co.id.fikridzakwan.core.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.databinding.ItemMovieLargeBinding
 import co.id.fikridzakwan.somethingbig.databinding.ItemMovieSmallBinding
-import co.id.fikridzakwan.somethingbig.domain.model.Movie
 import com.bumptech.glide.Glide
-import kotlin.properties.Delegates
 
 class MovieAdapter(
     private val onItemClickListener: (Movie) -> Unit,
