@@ -2,21 +2,18 @@ package co.id.fikridzakwan.somethingbig.presentation.search
 
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.visible
-import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentSearchMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import co.id.fikridzakwan.somethingbig.presentation.paging.MoviePagerAdapter
 import co.id.fikridzakwan.somethingbig.presentation.paging.ReposLoadStateAdapter
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -83,14 +80,14 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.getResult.collect {
                 when (it) {
-                    is Resource.Loading -> {  }
-                    is Resource.Success -> {
+                    is co.id.fikridzakwan.core.data.Resource.Loading -> {}
+                    is co.id.fikridzakwan.core.data.Resource.Success -> {
                         binding.progressLinear.gone()
                         lifecycleScope.launch {
                             it.data?.let { v -> moviePager.submitData(v) }
                         }
                     }
-                    is Resource.Error -> {
+                    is co.id.fikridzakwan.core.data.Resource.Error -> {
                         binding.progressLinear.gone()
                         showToast(it.message ?: "")
                     }

@@ -10,13 +10,12 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.transition.TransitionManager
+import co.id.fikridzakwan.core.domain.model.Detail
 import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.customview.visible
-import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.ActivityDetailMovieBinding
-import co.id.fikridzakwan.somethingbig.domain.model.Detail
 import co.id.fikridzakwan.somethingbig.utils.AppConstants.EXTRA_ID
 import co.id.fikridzakwan.somethingbig.utils.BaseActivity
 import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
@@ -85,10 +84,10 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.dataFromDb.collect {
                 when (it) {
-                    is Resource.Loading -> {
+                    is co.id.fikridzakwan.core.data.Resource.Loading -> {
                         binding.progressBar.visible()
                     }
-                    is Resource.Success -> {
+                    is co.id.fikridzakwan.core.data.Resource.Success -> {
                         binding.progressBar.gone()
                         if (it.data != null) {
                             populateDetail(it.data)
@@ -97,7 +96,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
                             isFavorite = true
                         }
                     }
-                    is Resource.Error -> {
+                    is co.id.fikridzakwan.core.data.Resource.Error -> {
                         if (dataDetail == null) {
                             viewModel.getDetailMovie(movieId)
                         }
@@ -111,8 +110,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
         lifecycleScope.launchWhenStarted {
             viewModel.getDetail.collect {
                 when (it) {
-                    is Resource.Loading -> Unit
-                    is Resource.Success -> {
+                    is co.id.fikridzakwan.core.data.Resource.Loading -> Unit
+                    is co.id.fikridzakwan.core.data.Resource.Success -> {
                         binding.progressBar.gone()
 
                         if (it.data != null) {
@@ -120,7 +119,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
                             populateDetail(it.data)
                         }
                     }
-                    is Resource.Error -> {
+                    is co.id.fikridzakwan.core.data.Resource.Error -> {
                         binding.progressBar.gone()
                         showToast(it.message ?: "")
                     }
@@ -129,16 +128,18 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding>() {
         }
     }
 
-    private fun populateDetail(data: Detail) {
+    private fun populateDetail(data: Detail?) {
         binding.apply {
-            imgBackdrop.loadImage(data.backdropPath, this@DetailMovieActivity)
-            imgPoster.loadImage(data.posterPath, this@DetailMovieActivity)
-            imgPoster.clipToOutline = true
-            tvTitle.text = data.title
-            tvGenres.text = data.genres
-            tvDate.text = data.releaseDate
-            tvRuntime.text = data.runtime
-            tvOverview.text = data.overview
+            if (data != null) {
+                imgBackdrop.loadImage(data.backdropPath, this@DetailMovieActivity)
+                imgPoster.loadImage(data.posterPath, this@DetailMovieActivity)
+                imgPoster.clipToOutline = true
+                tvTitle.text = data.title
+                tvGenres.text = data.genres
+                tvDate.text = data.releaseDate
+                tvRuntime.text = data.runtime
+                tvOverview.text = data.overview
+            }
         }
     }
 

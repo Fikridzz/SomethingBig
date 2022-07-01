@@ -2,12 +2,11 @@ package co.id.fikridzakwan.somethingbig.presentation.paging
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
+import co.id.fikridzakwan.core.domain.model.Movie
 import co.id.fikridzakwan.somethingbig.R
 import co.id.fikridzakwan.somethingbig.customview.loadImage
 import co.id.fikridzakwan.somethingbig.databinding.ItemMoreMovieBinding
-import co.id.fikridzakwan.somethingbig.domain.model.Movie
 
 class PagerViewHolder(private val binding: ItemMoreMovieBinding) :
     RecyclerView.ViewHolder(binding.root) {

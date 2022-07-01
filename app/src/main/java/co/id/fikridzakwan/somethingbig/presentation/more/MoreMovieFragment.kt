@@ -1,14 +1,12 @@
 package co.id.fikridzakwan.somethingbig.presentation.more
 
-import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import co.id.fikridzakwan.core.data.Resource
 import co.id.fikridzakwan.somethingbig.customview.gone
 import co.id.fikridzakwan.somethingbig.customview.visible
-import co.id.fikridzakwan.somethingbig.data.Resource
 import co.id.fikridzakwan.somethingbig.databinding.FragmentMoreMovieBinding
 import co.id.fikridzakwan.somethingbig.presentation.detail.DetailMovieActivity
 import co.id.fikridzakwan.somethingbig.presentation.paging.MoviePagerAdapter
@@ -16,8 +14,6 @@ import co.id.fikridzakwan.somethingbig.presentation.paging.ReposLoadStateAdapter
 import co.id.fikridzakwan.somethingbig.utils.AppConstants
 import co.id.fikridzakwan.somethingbig.utils.BaseFragment
 import co.id.fikridzakwan.somethingbig.utils.resetStatusBarColor
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
@@ -94,8 +90,9 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
                     is Resource.Loading -> { binding.progressBar.visible() }
                     is Resource.Success -> {
                         binding.progressBar.gone()
-                        if (it.data != null) {
-                            moviePager.submitData(it.data)
+                        val data = it.data
+                        if (data != null) {
+                            moviePager.submitData(data)
                         }
                     }
                     is Resource.Error -> {

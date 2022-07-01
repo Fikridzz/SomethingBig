@@ -3,8 +3,8 @@ package co.id.fikridzakwan.somethingbig.presentation.paging
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import co.id.fikridzakwan.somethingbig.domain.model.Movie
-import co.id.fikridzakwan.somethingbig.domain.usecase.MovieInteractor
+import co.id.fikridzakwan.core.domain.model.Movie
+import co.id.fikridzakwan.core.domain.usecase.MovieInteractor
 
 class MoviePagerAdapter(
     private val onItemClickListener: (Movie) -> Unit
