@@ -1,5 +1,6 @@
-package co.id.fikridzakwan.core
+package co.id.fikridzakwan.core.di
 
+import co.id.fikridzakwan.core.BuildConfig
 import co.id.fikridzakwan.core.data.source.network.MovieApiClient
 import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.OkHttpClient

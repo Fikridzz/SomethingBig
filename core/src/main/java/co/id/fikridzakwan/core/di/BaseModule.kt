@@ -1,4 +1,4 @@
-package co.id.fikridzakwan.core
+package co.id.fikridzakwan.core.di
 
 import co.id.fikridzakwan.core.data.MovieRepository
 import co.id.fikridzakwan.core.data.source.network.MovieApi

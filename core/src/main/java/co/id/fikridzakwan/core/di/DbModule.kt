@@ -1,4 +1,4 @@
-package co.id.fikridzakwan.core
+package co.id.fikridzakwan.core.di
 
 import androidx.room.Room
 import co.id.fikridzakwan.core.data.source.room.MovieDatabase
