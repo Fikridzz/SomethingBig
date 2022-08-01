@@ -71,4 +71,8 @@ dependencies {
     api "org.koin:koin-core:$koinVersion"
     api "org.koin:koin-android:$koinVersion"
     api "org.koin:koin-android-viewmodel:$koinVersion"
+//    testImplementation "io.insert-koin:koin-test:$koinVersion"
+//    // Koin for JUnit 4
+//    testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"
+
 }
