@@ -42,6 +42,9 @@ class TrendingMovieAdapter(
                 if (data.id == 1) {
                     imgPosterLarge.gone()
                     groupMore.visible()
+                } else {
+                    imgPosterLarge.visible()
+                    groupMore.gone()
                 }
             }
             itemView.setOnClickListener {
