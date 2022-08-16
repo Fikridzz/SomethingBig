@@ -43,6 +43,9 @@ class NowPlayingMovieAdapter(
                 if (data.id == 1) {
                     imgPoster.gone()
                     groupMore.visible()
+                } else {
+                    imgPoster.visible()
+                    groupMore.gone()
                 }
             }
             itemView.setOnClickListener {
