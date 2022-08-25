@@ -8,7 +8,7 @@ plugins {
 apply from: '../shared_dependencies.gradle'
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     defaultConfig {
         applicationId "co.id.fikridzakwan.somethingbig"
@@ -39,10 +39,11 @@ android {
 
 dependencies {
 
+    implementation project(":navigation")
+    implementation project(":presentation")
+    implementation project(":common")
     implementation project(":core")
-
-    // Glide
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation project(":domain")
 
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'

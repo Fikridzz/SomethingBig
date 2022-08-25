@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".presentation.more.MoreMovieFragment">
 
-    <co.id.fikridzakwan.somethingbig.customview.SomethingBigToolbar
+    <co.id.fikridzakwan.common.customview.SomethingBigToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_more_movie"
@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_more_movie" />
 
-    <co.id.fikridzakwan.somethingbig.customview.LoadingCustomView
+    <co.id.fikridzakwan.common.customview.LoadingCustomView
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
