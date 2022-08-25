@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SomethingBig">
         <activity
-            android:name=".presentation.splashscreen.SplashScreenActivity"
+            android:name=".view.splashscreen.SplashScreenActivity"
             android:configChanges="uiMode"
             android:exported="true"
             android:theme="@style/Theme.SomethingBig.NoActionBar">
@@ -24,12 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.detail.DetailMovieActivity"
+            android:name=".view.detail.DetailMovieActivity"
             android:configChanges="uiMode"
             android:exported="true"
             android:theme="@style/Theme.SomethingBig.NoActionBar"/>
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".view.main.MainActivity"
             android:configChanges="uiMode"
             android:exported="true"
             android:theme="@style/Theme.SomethingBig.NoActionBar">

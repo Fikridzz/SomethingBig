@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".presentation.detail.DetailMovieActivity">
+    tools:context=".view.detail.DetailMovieActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_backdrop"
@@ -184,7 +184,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="400dp" />
 
-    <co.id.fikridzakwan.somethingbig.customview.LoadingCustomView
+    <co.id.fikridzakwan.common.customview.LoadingCustomView
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

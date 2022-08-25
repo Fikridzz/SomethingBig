@@ -8,5 +8,9 @@ dependencyResolutionManagement {
 }
 rootProject.name = "SomethingBig"
 include ':app'
-include ':dynamicfeature'
 include ':core'
+include ':data'
+include ':presentation'
+include ':navigation'
+include ':domain'
+include ':common'
