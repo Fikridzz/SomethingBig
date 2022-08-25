@@ -1,7 +1,7 @@
 package co.id.fikridzakwan.core.di
 
 import androidx.room.Room
-import co.id.fikridzakwan.core.data.source.room.MovieDatabase
+import co.id.fikridzakwan.data.source.room.MovieDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

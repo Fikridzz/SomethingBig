@@ -9,15 +9,12 @@ plugins {
 apply from: '../shared_dependencies.gradle'
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     defaultConfig {
         minSdk 21
         targetSdk 31
 
-        buildConfigField("String", "BASE_URL", '"https://api.themoviedb.org/3/"')
-        buildConfigField("String", "API_KEY", '"c41c47a9477e70fce845573104467b3a"')
-        buildConfigField("String", "BASE_URL_IMAGE", '"https://image.tmdb.org/t/p/"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -42,35 +39,14 @@ android {
 
 dependencies {
 
+    implementation project(":data")
+    implementation project(":domain")
+
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
 
-    // Room
-    implementation "androidx.room:room-runtime:$roomVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-    androidTestImplementation "androidx.room:room-testing:$roomVersion"
-
-    // RxJava
-    api "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
-    api "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
-    api "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    implementation "androidx.room:room-rxjava2:$roomVersion"
-    api "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycleVersion"
-    // RxBinding
-    api 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
-
-    // Coroutine
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$couroutineVersion"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$couroutineVersion"
-    api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
-
-    // Koin
-    api "org.koin:koin-core:$koinVersion"
-    api "org.koin:koin-android:$koinVersion"
-    api "org.koin:koin-android-viewmodel:$koinVersion"
 //    testImplementation "io.insert-koin:koin-test:$koinVersion"
 //    // Koin for JUnit 4
 //    testImplementation "io.insert-koin:koin-test-junit4:$koinVersion"
