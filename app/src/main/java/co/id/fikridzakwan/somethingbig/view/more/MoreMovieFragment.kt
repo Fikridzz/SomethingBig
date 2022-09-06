@@ -54,16 +54,12 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
                     footer = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() })
                 )
             moviePager.addLoadStateListener { loadState ->
-                // Show empty list
-                val isListEmpty = loadState.refresh is LoadState.NotLoading && moviePager.itemCount == 0
-                binding.groupError.isVisible = isListEmpty
-                binding.rvMoreMovie.isVisible = !isListEmpty
-                // Only show the list if refresh succeeds
                 binding.rvMoreMovie.isVisible = loadState.source.refresh is LoadState.NotLoading
-                // Show loading spinner during initial load or refresh
                 binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                // Show retry state if initial load or refresh fails
                 binding.groupError.isVisible = loadState.source.refresh is LoadState.Error
+                val isListEmpty =
+                    loadState.refresh is LoadState.NotLoading && moviePager.itemCount == 0
+                binding.groupError.isVisible = isListEmpty
 
                 val errorState = loadState.source.append as? LoadState.Error
                     ?: loadState.source.prepend as? LoadState.Error

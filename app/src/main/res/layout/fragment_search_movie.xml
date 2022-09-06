@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.search.SearchFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <co.id.fikridzakwan.common.customview.SomethingBigToolbar
         android:id="@+id/toolbar"
@@ -74,6 +73,7 @@
         android:id="@+id/group_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="text_empty_list, btn_retry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

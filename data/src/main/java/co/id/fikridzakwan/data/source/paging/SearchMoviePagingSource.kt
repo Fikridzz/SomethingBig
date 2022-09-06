@@ -19,9 +19,13 @@ class SearchMoviePagingSource(
             val response = service.searchMovies(BuildConfig.API_KEY, query, position)
             val repos = response.body()?.results
             LoadResult.Page(
-                data = repos!!,
+                data = repos.orEmpty(),
                 prevKey = if (position == 1) null else position - 1,
-                nextKey = if (position == response.body()?.totalPages) null else position + 1
+                nextKey = when {
+                    position == response.body()?.totalPages -> null
+                    response.body()?.results.isNullOrEmpty() -> null
+                    else -> position + 1
+                }
             )
         } catch (e: IOException) {
             LoadResult.Error(e)

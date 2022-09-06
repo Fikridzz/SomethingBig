@@ -110,7 +110,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>() {
                         binding.shimmerLayout1.gone()
 
                         // Random pick image backdrop from api
-                        val backdrop = it.data?.asSequence()?.shuffled()?.find { true }
+                        val backdrop = it.data?.asReversed()?.shuffled()?.find { true }
                         binding.imgBackdrop.loadImage(
                             backdrop?.backdropPath.toString(),
                             requireContext()

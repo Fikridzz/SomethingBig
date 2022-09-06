@@ -22,6 +22,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
 
     private val viewModel: SearchMovieViewModel by viewModel()
+    private var querySearch = ""
 
     private val moviePager: MoviePagerAdapter by lazy {
         MoviePagerAdapter(
@@ -36,23 +37,35 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
     override fun initUI() {
         binding.apply {
             toolbar.setTitle("Search")
-            binding.progressLinear.gone()
-            binding.srcMovie.onWindowFocusChanged(true)
+            progressLinear.gone()
+            srcMovie.onWindowFocusChanged(true)
 
             with(rvSearch) {
                 layoutManager = LinearLayoutManager(context)
                 adapter = moviePager
                     .withLoadStateHeaderAndFooter(
-                        header = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() }),
-                        footer = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() })
+                        header = ReposLoadStateAdapter(
+                            context = context,
+                            retry = { moviePager.retry() }),
+                        footer = ReposLoadStateAdapter(
+                            context = context,
+                            retry = { moviePager.retry() })
                     )
                 moviePager.addLoadStateListener { loadState ->
-                    val isListEmpty = loadState.refresh is LoadState.NotLoading && moviePager.itemCount == 0
-                    binding.groupError.isVisible = isListEmpty
-                    binding.progressLinear.isVisible = !isListEmpty
                     binding.rvSearch.isVisible = loadState.source.refresh is LoadState.NotLoading
                     binding.progressLinear.isVisible = loadState.source.refresh is LoadState.Loading
                     binding.groupError.isVisible = loadState.source.refresh is LoadState.Error
+                    val isListEmpty =
+                        loadState.refresh is LoadState.NotLoading && moviePager.itemCount == 0
+                    if (querySearch.isNotEmpty()) binding.groupError.isVisible = isListEmpty
+
+                    val errorState = loadState.source.append as? LoadState.Error
+                        ?: loadState.source.prepend as? LoadState.Error
+                        ?: loadState.append as? LoadState.Error
+                        ?: loadState.prepend as? LoadState.Error
+                    errorState?.let {
+                        showToast(it.error.localizedMessage ?: "Error")
+                    }
                 }
             }
         }
@@ -62,11 +75,13 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
         binding.srcMovie.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 viewModel.searchMovie(query)
+                querySearch = query
                 binding.progressLinear.visible()
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
+            override fun onQueryTextChange(query: String): Boolean {
+                querySearch = query
                 return false
             }
         })
@@ -75,6 +90,7 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
     override fun initAction() {
         binding.apply {
             toolbar.btnBack.setOnClickListener { findNavController().popBackStack() }
+            btnRetry.setOnClickListener { viewModel.searchMovie(querySearch) }
         }
     }
 

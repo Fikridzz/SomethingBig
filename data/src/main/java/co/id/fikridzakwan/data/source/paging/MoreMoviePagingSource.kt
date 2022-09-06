@@ -23,9 +23,14 @@ class MoreMoviePagingSource(
             }
             val repos = response.body()?.results
             LoadResult.Page(
-                data = repos!!,
-                prevKey = if (position == 1) null else position -1,
-                nextKey = if (position == response.body()?.totalPages) null else position + 1
+                data = repos.orEmpty(),
+                prevKey = if (position == 1) null else position - 1,
+                nextKey = when {
+                    position == response.body()?.totalPages -> null
+                    // Prevent for infinite looping when data is empty
+                    response.body()?.results.isNullOrEmpty() -> null
+                    else -> position + 1
+                }
             )
         } catch (e: IOException) {
             return LoadResult.Error(e)

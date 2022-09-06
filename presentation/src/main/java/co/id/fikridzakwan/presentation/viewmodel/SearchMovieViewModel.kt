@@ -17,12 +17,12 @@ class SearchMovieViewModel(private val movieUseCase: MovieUseCase) : ViewModel()
         Resource.Loading()
     )
 
-    fun searchMovie(query: String) {
+    fun searchMovie(query: String?) {
 
         viewModelScope.launch {
             getResult.value = Resource.Loading()
 
-            movieUseCase.searchMovies(query)
+            movieUseCase.searchMovies(query ?: "")
                 .cachedIn(viewModelScope)
                 .catch {
                     getResult.value =
