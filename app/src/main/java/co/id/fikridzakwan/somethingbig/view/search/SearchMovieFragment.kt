@@ -38,7 +38,7 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
         binding.apply {
             toolbar.setTitle("Search")
             progressLinear.gone()
-            srcMovie.onWindowFocusChanged(true)
+            srcMovie.requestFocus()
 
             with(rvSearch) {
                 layoutManager = LinearLayoutManager(context)

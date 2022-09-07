@@ -29,7 +29,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        app:queryBackground="@android:color/transparent"
         android:background="@drawable/bg_search"
+        android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="@id/toolbar"
         app:layout_constraintEnd_toEndOf="@id/toolbar" />
