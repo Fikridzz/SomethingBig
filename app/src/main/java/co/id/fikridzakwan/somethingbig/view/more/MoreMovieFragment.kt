@@ -1,6 +1,5 @@
 package co.id.fikridzakwan.somethingbig.view.more
 
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,19 +53,25 @@ class MoreMovieFragment : BaseFragment<FragmentMoreMovieBinding>() {
                     footer = ReposLoadStateAdapter(context = context, retry = { moviePager.retry() })
                 )
             moviePager.addLoadStateListener { loadState ->
-                binding.rvMoreMovie.isVisible = loadState.source.refresh is LoadState.NotLoading
-                binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                binding.groupError.isVisible = loadState.source.refresh is LoadState.Error
-                val isListEmpty =
-                    loadState.refresh is LoadState.NotLoading && moviePager.itemCount == 0
-                binding.groupError.isVisible = isListEmpty
 
-                val errorState = loadState.source.append as? LoadState.Error
-                    ?: loadState.source.prepend as? LoadState.Error
-                    ?: loadState.append as? LoadState.Error
-                    ?: loadState.prepend as? LoadState.Error
-                errorState?.let {
-                    showToast(it.error.localizedMessage ?: "Error")
+                when (loadState.source.refresh) {
+                    is LoadState.NotLoading -> {
+                        binding.progressBar.gone()
+                        binding.rvMoreMovie.visible()
+                        if (moviePager.itemCount == 0) binding.groupError.visible()
+                    }
+                    is LoadState.Loading -> {
+                        binding.progressBar.visible()
+                        binding.groupError.gone()
+                        binding.rvMoreMovie.gone()
+                    }
+                    is LoadState.Error -> {
+                        binding.groupError.visible()
+                        binding.progressBar.gone()
+                        binding.rvMoreMovie.gone()
+                        val errorState = loadState.source.append as? LoadState.Error
+                        binding.tvEmptyList.text = errorState?.error?.message
+                    }
                 }
             }
         }

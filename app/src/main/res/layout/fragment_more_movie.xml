@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.more.MoreMovieFragment">
+    android:layout_height="match_parent">
 
     <co.id.fikridzakwan.common.customview.SomethingBigToolbar
         android:id="@+id/toolbar"
@@ -41,10 +40,10 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/text_empty_list"/>
+        app:layout_constraintBottom_toTopOf="@id/tv_empty_list" />
 
     <TextView
-        android:id="@+id/text_empty_list"
+        android:id="@+id/tv_empty_list"
         style="@style/SomethingBigTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,6 +58,7 @@
         android:id="@+id/group_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="text_empty_list, btn_retry" />
+        android:visibility="gone"
+        app:constraint_referenced_ids="tv_empty_list, btn_retry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

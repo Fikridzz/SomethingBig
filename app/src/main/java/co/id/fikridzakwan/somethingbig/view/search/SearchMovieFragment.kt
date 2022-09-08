@@ -1,7 +1,6 @@
 package co.id.fikridzakwan.somethingbig.view.search
 
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -52,19 +51,25 @@ class SearchFragment : BaseFragment<FragmentSearchMovieBinding>() {
                             retry = { moviePager.retry() })
                     )
                 moviePager.addLoadStateListener { loadState ->
-                    binding.rvSearch.isVisible = loadState.source.refresh is LoadState.NotLoading
-                    binding.progressLinear.isVisible = loadState.source.refresh is LoadState.Loading
-                    binding.groupError.isVisible = loadState.source.refresh is LoadState.Error
-                    val isListEmpty =
-                        loadState.refresh is LoadState.NotLoading && moviePager.itemCount == 0
-                    if (querySearch.isNotEmpty()) binding.groupError.isVisible = isListEmpty
 
-                    val errorState = loadState.source.append as? LoadState.Error
-                        ?: loadState.source.prepend as? LoadState.Error
-                        ?: loadState.append as? LoadState.Error
-                        ?: loadState.prepend as? LoadState.Error
-                    errorState?.let {
-                        showToast(it.error.localizedMessage ?: "Error")
+                    when (loadState.source.refresh) {
+                        is LoadState.NotLoading -> {
+                            binding.progressLinear.gone()
+                            if (querySearch.isNotEmpty() && moviePager.itemCount == 0) binding.groupError.visible()
+                            binding.rvSearch.visible()
+                        }
+                        is LoadState.Loading -> {
+                            binding.progressLinear.visible()
+                            binding.groupError.gone()
+                            binding.rvSearch.gone()
+                        }
+                        is LoadState.Error -> {
+                            binding.progressLinear.gone()
+                            binding.groupError.visible()
+                            binding.rvSearch.gone()
+                            val errorState = loadState.source.append as? LoadState.Error
+                            binding.tvEmptyList.text = errorState?.error?.message
+                        }
                     }
                 }
             }
